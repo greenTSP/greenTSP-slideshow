@@ -52,4 +52,23 @@
 
   var slideshow = new Slideshow(_slides);
   slideshow.init();
+  
+  Slideshow.prototype.lazyLoad = function(index)
+  {
+	var prev, next;
+
+	this.load(index);
+	  
+	prev = (index===0)?slides.length:index-1;
+	this.load(prev);
+	
+	next = ((index+1)===slides.length)?0:index+1;	
+	this.load(next);
+  };
+  
+  Slideshow.prototype.load = function(index)
+  {
+	if(!slides[index].load)
+		document.getElementById(slides[index-1].id).setAttribute('src', slides[index].src);
+  };
 })();

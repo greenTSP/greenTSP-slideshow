@@ -4,7 +4,7 @@ var fs = require('fs');
 var util = require('util');
 
 var exportToJson = function(infos){
-	resizer.exportGclImg('../../gclcimages/', infos, oldInfos);
+	resizer.exportGclImg('../../gclcimages/', infos, {flag: 'w+'}, oldInfos);
 	
 	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), function (err) {
 		if (err) throw err;

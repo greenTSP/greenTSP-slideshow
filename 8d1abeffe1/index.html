@@ -18,7 +18,7 @@
 		<style>
 			#slideshow, #slideshow .controls {
 				overflow: hidden;
-				height: 380px;
+				height: 425px;
 				width: 900px;
 			}
 
@@ -46,11 +46,73 @@
 
 			#slideshow .slides figcaption {
 				text-align: center;
+				height: 30px;
+				background-color: #818884;
+				line-height: 30px;
+				color: #ffffff;
+				font-size: 14px;
 			}
 
 			#slideshow .controls {
 				z-index: 3;
 				position: absolute;
+			}
+			
+			#slideshow .next,#slideshow .prev{
+				position: absolute;
+				width: 54px;
+				height: 54px;
+				top: 170px;
+				cursor: pointer;
+				background: url('./img/sprite-square-opt.png') 0 -55px;
+			}
+			
+			#slideshow .next{
+				right: 0;
+			}
+			
+			#slideshow .prev{
+				left: 0;
+				background-position: 0 -110px;
+			}
+			
+			#slideshow .nav{
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
+			
+			#slideshow .bullet{
+				display: inline-block;
+				width: 19px;
+				height: 18px;
+				margin-left: 10px;
+				background: url('./img/sprite-bullet.png') -19px 0;
+				pointer: cursor;
+			}
+			
+			#slideshow .bullet.active{
+				background-position: 0 0;
+			}
+			
+			#slideshow .counter{
+				position: absolute;
+				bottom: 0;
+				left: 10px;
+			}
+			
+			#slideshow .status{
+				cursor: pointer;
+				top: 10px;
+				right: 10px;
+				position: absolute;
+				width: 54px;
+				height: 54px;
+				background: url('./img/sprite-square-opt.png') 0 0;
+			}
+			
+			#slideshow .status.pause{
+				backgroun-position: -55px 0;
 			}
 		</style>
 	</head>
@@ -96,12 +158,12 @@
 							<div class="status"></div>
 							<div class="prev"></div>
 							<div class="next"></div>
-							<div class="counter"></div>
+							<div class="counter">1/4</div>
 							<nav class="nav">
-								<a href="#" data-src="../gclcimages/bach_creek_river.jpg">1</a>
-								<a href="#" data-src="../gclcimages/canoe_water_nature.jpg">2</a>
-								<a href="#" data-src="../gclcimages/gclc.png">3</a>
-								<a href="#" data-src="../gclcimages/guyana_sky_clouds.jpg">4</a>
+								<a href="#" class="active bullet" data-src="../gclcimages/bach_creek_river.jpg"></a>
+								<a href="#" class="bullet" data-src="../gclcimages/canoe_water_nature.jpg"></a>
+								<a href="#" class="bullet" data-src="../gclcimages/gclc.png"></a>
+								<a href="#" class="bullet" data-src="../gclcimages/guyana_sky_clouds.jpg"></a>
 							</nav>
 						</div>
 					</div>

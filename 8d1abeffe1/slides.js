@@ -95,7 +95,7 @@
     // Generate the slides
     for(var i = 0; i < slidesData.length; i++) {
       slidesNode.appendChild(createSlide(
-        '/backofficeimages/' + format + '/' + slidesData[i].name,
+        '../backofficeimages/' + format + '/' + slidesData[i].name,
         slidesData[i].desc
       ));
     }

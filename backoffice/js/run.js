@@ -1,8 +1,33 @@
 var resizer = require('./resizer.js');
+var propParser = require('./propParser.js');
+var fs = require('fs');
+var util = require('util');
 
-resizer.exportImg('bach_creek_river.jpg','../../gclcimages/bach_creek_river.jpg',function(){console.log('bach_creek_river done !');});
-resizer.exportImg('canoe_water_nature.jpg','../../gclcimages/canoe_water_nature.jpg',function(){console.log('canoe_water_nature done !');});
-resizer.exportImg('gclc.png','../../gclcimages/gclc.png',function(){console.log('gclc done !');});
-resizer.exportImg('guyana_sky_clouds.jpg','../../gclcimages/guyana_sky_clouds.jpg',function(){console.log('guyana_sky_clouds done !');});
-resizer.exportImg('hawaii_sky_clouds.jpg','../../gclcimages/hawaii_sky_clouds.jpg',function(){console.log('hawaii_sky_clouds done !');});
-resizer.exportImg('water_nature_river.jpg','../../gclcimages/water_nature_river.jpg',function(){console.log('water_nature_river done !');});
+var exportToJson = function(infos){
+	mergeBackofficeInfos(oldInfos, infos);
+	resizer.exportGclImg('../../gclcimages/', infos, oldInfos);
+	
+	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), {flag: 'w+'}, function (err) {
+		if (err) throw err;
+	});
+};
+
+var mergeBackofficeInfos = function(oldInfos, infos)
+{
+	for(var i=0; i<oldInfos.imgs.length; i++){
+		if(!oldInfos.imgs[i].isGclImg){
+			infos.imgs.push(oldInfos.imgs[i]);
+		}
+	}
+};
+
+var getInfos = function(){
+	if(!fs.existsSync('../../backofficeimages/imgs.info.json'))
+		return {"imgs":[]};
+	
+	return JSON.parse(fs.readFileSync('../../backofficeimages/imgs.info.json'));
+};
+
+var oldInfos = getInfos();
+
+propParser.getImgInfos(function(result){ exportToJson(result);});

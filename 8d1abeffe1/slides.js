@@ -70,23 +70,23 @@
 
     nextNode.addEventListener('click', this.nextSlide.bind(this));
     prevNode.addEventListener('click', this.prevSlide.bind(this));
+    statusNode.addEventListener('click', this.toggleAutoplay.bind(this));
 
     var timeout = function(){
       if(this.autoplay) {
         this.nextSlide();
-        setTimeout(timeout.bind(this), 3000);
       }
+      setTimeout(timeout.bind(this), 3000);
     };
 
     setTimeout(timeout.bind(this), 3000);
   };
 
-  Slideshow.prototype.pause = function() {
-    this.autoplay = false;
-  };
+  Slideshow.prototype.toggleAutoplay = function() {
+    this.autoplay = this.autoplay ? false : true;
 
-  Slideshow.prototype.play = function() {
-    this.autoplay = true;
+    statusNode.classList.toggle('playing');
+    statusNode.classList.toggle('stopped');
   };
 
   slideshow = new Slideshow(_slides);

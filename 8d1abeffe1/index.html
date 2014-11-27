@@ -52,6 +52,20 @@
 				z-index: 3;
 				position: absolute;
 			}
+
+			.sprite {
+				background: url("img/sprite-square.png") 0 0 no-repeat;
+				width: 55px;
+				height: 55px;
+			}
+
+			.sprite.playing {
+				background-position: 0px 0px;
+			}
+
+			.sprite.stopped {
+				background-position: -55px 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -93,7 +107,7 @@
 							</figure>
 						</div>
 						<div class="controls">
-							<div class="status"></div>
+							<div class="status sprite playing"></div>
 							<a href="#" class="prev">Prev</a>
 							<a href="#" class="next">Next</a>
 							<div class="counter">1 / 4</div>

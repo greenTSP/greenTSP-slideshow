@@ -4,11 +4,21 @@ var fs = require('fs');
 var util = require('util');
 
 var exportToJson = function(infos){
+	mergeBackofficeInfos(oldInfos, infos);
 	resizer.exportGclImg('../../gclcimages/', infos, oldInfos);
 	
 	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), {flag: 'w+'}, function (err) {
 		if (err) throw err;
 	});
+};
+
+var mergeBackofficeInfos = function(oldInfos, infos)
+{
+	for(var i=0; i<oldInfos.imgs.length; i++){
+		if(!oldInfos.imgs[i].isGclImg){
+			infos.imgs.push(oldInfos.imgs[i]);
+		}
+	}
 };
 
 var getInfos = function(){

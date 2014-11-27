@@ -20,19 +20,16 @@ app.get('/', function(req, res){
 });
 
 app.post('/upload', function(req, res){
-	var finalName = (new Date()).getTime();
+	var finalName = (new Date()).getTime()+"."+req.files['image'].extension;
 	var initName = req.files['image'].path;
-	var resizer = new Object();
 	
-	resizer.exportImg = function(a, b, c,cb){
-		console.log('Exporting image');
-		cb();
-	}
-	
-	desc = req.body.description;
-	resizer.exportImg(finalName, desc, initName, function(){
+	var desc = req.body.description;
+	resizer.exportBackofficeImg(finalName, desc, initName, function(){
 		var command = 'rm '+initName;
-		exec(command, function(){
+		console.log(command);
+		exec(command, function(err){
+			if(err)
+				throw err;
 			console.log('desc = ' + desc);
 			console.log('File removed');
 			res.send('success');

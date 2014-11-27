@@ -4,7 +4,7 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var sys = require('sys');
 
-var jpegoptim = "/usr/bin/jpegoptim";
+var jpegoptim = "/usr/local/bin/jpegoptim";
 var jpegoptions = "--max=90 --all-progressive --strip-all --preserve --totals";
 
 var optipng = "/usr/local/bin/optipng";
@@ -89,7 +89,7 @@ var optimPNG = function(imgpath, callback){
 
 var resizeImage = function(input, output, sizeX, sizeY, callback){
 	var command = converter + " " + input + " " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 " + output;
-	console.log(command);
+	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
 			callback(err, output);
@@ -97,7 +97,7 @@ var resizeImage = function(input, output, sizeX, sizeY, callback){
 };
 
 var exportBackofficeImg = function(filename, description, input, callback){
-	resizer.exportImg(filename,input);
+	resizer.exportImg(filename,input, callback);
 	
 	var infos = getInfos();
 	var n = infos.imgs.length;
@@ -114,13 +114,13 @@ var exportBackofficeImg = function(filename, description, input, callback){
 		}
 	}
 	if(!added)
-		infos.push(new img_constructor(filename, description, (i%2===0)?'fade':'translate', new Date(), false));
+		infos.imgs.push(new img_constructor(filename, description, (i%2===0)?'fade':'translate', new Date(), false));
 	
 	exportToJson(infos);
 };
 
 var exportToJson = function(infos){
-	resizer.exportGclImg('../../gclcimages/', infos, oldInfos);
+	exportGclImg('../../gclcimages/', infos, oldInfos);
 	
 	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), function (err) {
 		if (err) throw err;
@@ -181,6 +181,7 @@ var exportGclImg = function(folder, infos, oldInfos){
 	}
 };
 
+exports.exportBackofficeImg = exportBackofficeImg;
 exports.exportGclImg = exportGclImg;
 exports.exportImg = resizer.exportImg;
 exports.setPngOptimizer = resizer.setPngOptimizer;

@@ -18,12 +18,12 @@
 		<style>
 			#slideshow, #slideshow .controls {
 				overflow: hidden;
-				height: 425px;
-				width: 900px;
+				margin: auto;
+				position: relative;
 			}
-
+			
 			#slideshow .slides figure {
-				width: 900px;
+				width: 100%;
 				position: absolute;
 				opacity: 0;
 				-moz-transition: all 800ms ease-in;
@@ -36,7 +36,6 @@
 
 			#slideshow .slides img {
 				width: 100%;
-				height: 360px;
 			}
 
 			#slideshow .slides .show {
@@ -46,74 +45,149 @@
 
 			#slideshow .slides figcaption {
 				text-align: center;
-				height: 30px;
 				background-color: #818884;
-				line-height: 30px;
 				color: #ffffff;
-				font-size: 14px;
 			}
 
 			#slideshow .controls {
 				z-index: 3;
 				position: absolute;
 			}
-			
+
 			#slideshow .next,#slideshow .prev{
 				position: absolute;
-				width: 54px;
-				height: 54px;
-				top: 170px;
 				cursor: pointer;
-				background: url('./img/sprite-square-opt.png') 0 -55px;
+				background-image: url('./img/sprite-square-opt.png');
+				background-size: 200% 300%;
+				background-position: 0 -100%;
 			}
-			
+
 			#slideshow .next{
 				right: 0;
+				background-position: 0 -100%;
 			}
-			
+
 			#slideshow .prev{
 				left: 0;
-				background-position: 0 -110px;
+				background-position: 0 -200%;
 			}
-			
+
 			#slideshow .nav{
 				position: absolute;
 				bottom: 0;
 				right: 0;
 			}
-			
+
 			#slideshow .bullet{
 				display: inline-block;
-				width: 19px;
-				height: 18px;
-				margin-left: 10px;
-				background: url('./img/sprite-bullet.png') -19px 0;
-				pointer: cursor;
+				background-image: url('./img/sprite-bullet.png');
+				background-size: 200% 100%;
+				cursor: pointer;
+				background-position: -100% 0;
 			}
-			
+
 			#slideshow .bullet.active{
 				background-position: 0 0;
 			}
-			
+
 			#slideshow .counter{
 				position: absolute;
 				bottom: 0;
-				left: 10px;
 			}
-			
+
 			#slideshow .status{
 				cursor: pointer;
-				top: 10px;
-				right: 10px;
 				position: absolute;
-				width: 54px;
-				height: 54px;
-				background: url('./img/sprite-square-opt.png') 0 0;
+				background-image: url('./img/sprite-square-opt.png');
+				background-size: 200% 300%;
+				background-position: 0 0;
+			}
+
+			#slideshow .status.stopped{
+				background-position: -100% 0;
 			}
 			
-			#slideshow .status.stopped{
-				background-position: -55px 0;
+			@media(max-width: 768px){
+				#slideshow, #slideshow .controls {
+					height: 168px;
+					width: 320px;
+				}
+
+				#slideshow .slides img{
+					height: 128px;
+				}
+
+				#slideshow .slides figcaption {
+					height: 20px;
+					line-height: 20px;
+					font-size: 11px;
+				}
+
+				#slideshow .next,#slideshow .prev{
+					width: 18px;
+					height: 18px;
+					top: 84px;
+				}
+			
+				#slideshow .bullet{
+					width: 9px;
+					height: 9px;
+					margin-left: 0;
+				}
+			
+				#slideshow .counter{
+					left: 0;
+					font-size: 10px;
+				}
+
+				#slideshow .status{
+					top: 5px;
+					right: 5px;
+					width: 18px;
+					height: 18px;
+				}
 			}
+			
+			@media(min-width: 768px){
+				#slideshow, #slideshow .controls {
+					height: 425px;
+					width: 900px;
+				}
+
+				#slideshow .slides img {
+					height: 360px;
+				}
+
+				#slideshow .slides figcaption {
+					height: 30px;
+					line-height: 30px;
+					font-size: 14px;
+				}
+
+				#slideshow .next,#slideshow .prev{
+					width: 54px;
+					height: 54px;
+					top: 180px;
+				}
+			
+				#slideshow .bullet{
+					width: 19px;
+					height: 18px;
+					margin-left: 10px;
+				}
+			
+				#slideshow .counter{
+					left: 10px;
+				}
+
+				#slideshow .status{
+					top: 10px;
+					right: 10px;
+					width: 54px;
+					height: 54px;
+				}
+			}
+
 		</style>
 	</head>
 	<body>
@@ -137,33 +211,13 @@
 				<div class="col-md-12">
 					<div id="slideshow">
 						<div class="slides">
-							<figure class="show">
-								<img src="../gclcimages/bach_creek_river.jpg" alt="" />
-								<figcaption>Un ruisseau ombragé</figcaption>
-							</figure>
-							<figure>
-								<img src="../gclcimages/canoe_water_nature.jpg" alt="" />
-								<figcaption>Une invitation à naviguer paisiblement</figcaption>
-							</figure>
-							<figure>
-								<img src="../gclcimages/gclc.png" alt="" />
-								<figcaption>le logo officiel du Green Code Lab Challenge </figcaption>
-							</figure>
-							<figure>
-								<img src="../gclcimages/guyana_sky_clouds.jpg" alt="" />
-								<figcaption>Landscape in Amazonian Guyana</figcaption>
-							</figure>
 						</div>
 						<div class="controls">
 							<div class="status playing"></div>
 							<a href="#" class="prev"></a>
 							<a href="#" class="next"></a>
-							<div class="counter">1 / 4</div>
+							<div class="counter"></div>
 							<nav class="nav">
-								<a href="#" class="active bullet" data-src="../gclcimages/bach_creek_river.jpg"></a>
-								<a href="#" class="bullet" data-src="../gclcimages/canoe_water_nature.jpg"></a>
-								<a href="#" class="bullet" data-src="../gclcimages/gclc.png"></a>
-								<a href="#" class="bullet" data-src="../gclcimages/guyana_sky_clouds.jpg"></a>
 							</nav>
 						</div>
 					</div>
@@ -209,12 +263,7 @@
 		<script type="text/javascript">
 		var _slides = {
 			id: '#slideshow',
-			slides: [
-				{src: '../gclcimages/bach_creek_river.jpg', caption: 'Un ruisseau ombragé'},
-				{src: '../gclcimages/canoe_water_nature.jpg', caption: 'Une invitation à naviguer paisiblement'},
-				{src: '../gclcimages/gclc.png', caption: 'le logo officiel du Green Code Lab Challenge'},
-				{src: '../gclcimages/guyana_sky_clouds.jpg', caption: 'Landscape in Amazonian Guyana'}
-			]
+			json: '../backofficeimages/imgs.info.json'
 		};
 		</script>
 		<script type="text/javascript" src="slides.js" async></script>

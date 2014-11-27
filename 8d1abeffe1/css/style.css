@@ -1,0 +1,238 @@
+#slideshow, #slideshow .controls {
+	overflow: hidden;
+	margin: auto;
+	position: relative;
+}
+
+#slideshow .slides figure {
+	width: 100%;
+	position: absolute;
+	z-index: 1;
+	opacity: 0;
+	left: -100%;
+}
+
+#slideshow .slides figure.translate {
+	-webkit-animation: translate-out 0.8s;
+	animation: translate-out 0.8s;
+}
+
+#slideshow .slides figure.fade {
+	-webkit-animation: fade-out 0.8s;
+	animation: fade-out 0.8s;
+}
+
+#slideshow .slides img {
+	width: 100%;
+}
+
+#slideshow .slides figure.show {
+	opacity: 1;
+	left: 0;
+	z-index: 3;
+	-webkit-animation: fade-in 0.8s;
+	animation: fade-in 0.8s;
+}
+
+#slideshow .slides figure.fade.show {
+	-webkit-animation: fade-in 0.8s;
+	animation: fade-in 0.8s;
+}
+
+#slideshow .slides figure.translate.show {
+	-webkit-animation: translate-in 0.8s;
+	animation: translate-in 0.8s;
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fade-in {
+	from {opacity: 0; left: 0;z-index: 1;}
+	to {opacity: 1; left: 0;z-index: 3;}
+}
+
+/* Standard syntax */
+@keyframes fade-in {
+	from {opacity: 0; left: 0;z-index: 3;}
+	to {opacity: 1; left: 0;z-index: 1;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes fade-out {
+	from {opacity: 1; left: 0;}
+	to {opacity: 0; left: 0;}
+}
+
+/* Standard syntax */
+@keyframes fade-out {
+	from {opacity: 1; left: 0;}
+	to {opacity: 0; left: 0;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes translate-in {
+	from {opacity: 1; left: -100%;}
+	to {opacity: 1; left: 0;}
+}
+
+/* Standard syntax */
+@keyframes translate-in {
+	from {opacity: 1; left: -100%;}
+	to {opacity: 1; left: 0;}
+}
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes translate-out {
+	from {opacity: 1; left: 0;}
+	to {opacity: 1; left: 100%;}
+}
+
+/* Standard syntax */
+@keyframes translate-out {
+	from {opacity: 1; left: 0;}
+	to {opacity: 1; left: 100%;}
+}
+
+#slideshow .slides figcaption {
+	text-align: center;
+	background-color: #818884;
+	color: #ffffff;
+}
+
+#slideshow .controls {
+	z-index: 3;
+	position: absolute;
+}
+
+#slideshow .next,#slideshow .prev{
+	position: absolute;
+	cursor: pointer;
+	background-image: url('../img/sprite-square.png');
+	background-size: 200% 300%;
+	background-position: 0 -100%;
+}
+
+#slideshow .next{
+	right: 0;
+	background-position: 0 -100%;
+}
+
+#slideshow .prev{
+	left: 0;
+	background-position: 0 -200%;
+}
+
+#slideshow .nav{
+	position: absolute;
+	bottom: 0;
+	right: 0;
+}
+
+#slideshow .bullet{
+	display: inline-block;
+	background-image: url('../img/sprite-bullet.png');
+	background-size: 200% 100%;
+	cursor: pointer;
+	background-position: -100% 0;
+}
+
+#slideshow .bullet.active{
+	background-position: 0 0;
+}
+
+#slideshow .counter{
+	position: absolute;
+	bottom: 0;
+}
+
+#slideshow .status{
+	cursor: pointer;
+	position: absolute;
+	background-image: url('../img/sprite-square-opt.png');
+	background-size: 200% 300%;
+	background-position: 0 0;
+}
+
+#slideshow .status.stopped{
+	background-position: -100% 0;
+}
+
+@media(max-width: 768px){
+	#slideshow, #slideshow .controls {
+		height: 168px;
+		width: 320px;
+	}
+
+	#slideshow .slides img{
+		height: 128px;
+	}
+
+	#slideshow .slides figcaption {
+		height: 20px;
+		line-height: 20px;
+		font-size: 11px;
+	}
+
+	#slideshow .next,#slideshow .prev{
+		width: 18px;
+		height: 18px;
+		top: 84px;
+	}
+
+	#slideshow .bullet{
+		width: 9px;
+		height: 9px;
+		margin-left: 0;
+	}
+
+	#slideshow .counter{
+		left: 0;
+		font-size: 10px;
+	}
+
+	#slideshow .status{
+		top: 5px;
+		right: 5px;
+		width: 18px;
+		height: 18px;
+	}
+}
+
+@media(min-width: 768px){
+	#slideshow, #slideshow .controls {
+		height: 425px;
+		width: 900px;
+	}
+
+	#slideshow .slides img {
+		height: 360px;
+	}
+
+	#slideshow .slides figcaption {
+		height: 30px;
+		line-height: 30px;
+		font-size: 14px;
+	}
+
+	#slideshow .next,#slideshow .prev{
+		width: 54px;
+		height: 54px;
+		top: 180px;
+	}
+
+	#slideshow .bullet{
+		width: 19px;
+		height: 18px;
+		margin-left: 10px;
+	}
+
+	#slideshow .counter{
+		left: 10px;
+	}
+
+	#slideshow .status{
+		top: 10px;
+		right: 10px;
+		width: 54px;
+		height: 54px;
+	}
+}

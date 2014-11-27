@@ -7,7 +7,7 @@ var sys = require('sys');
 var jpegoptim = "/usr/bin/jpegoptim";
 var jpegoptions = "--max=90 --all-progressive --strip-all --preserve --totals";
 
-var optipng = "/usr/bin/optipng";
+var optipng = "/usr/local/bin/optipng";
 var pngoptions = "-o2 -preserve";
 
 var converter = "/usr/bin/convert";

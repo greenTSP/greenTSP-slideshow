@@ -53,19 +53,16 @@
     // List of slides
     slidesNodeList = slidesNode.children;
     current = 0;
-    slidesNodeList.item(current).classList.add('show');
-
-
-    this.play();
   };
 
   Slideshow.prototype.slideTo = function(to) {
     console.log('slide from ' + current + ' to ' + to);
-    var cur = slidesNodeList.item(current),
-    dest = slidesNodeList.item(to);
 
-    cur.classList.toggle('show');
-    dest.classList.toggle('show');
+    slidesNodeList.item(current).classList.toggle('show');
+    slidesNodeList.item(to).classList.toggle('show');
+
+    navNode.children.item(current).classList.toggle('active');
+    navNode.children.item(to).classList.toggle('active');
 
     current = to;
 
@@ -89,7 +86,8 @@
     for(var i = 0; i < len; i++) {
       var a = document.createElement('a');
       a.href = '#';
-      a.textContent = i+1;
+      a.title = 'Go to n°' + (i+1);
+      a.classList.add('bullet');
 
       // On click go to slide i
       a.addEventListener('click', function(event){
@@ -98,6 +96,10 @@
 
       navNode.appendChild(a)
     }
+
+    // Set default classes
+    slidesNodeList.item(current).classList.add('show');
+    navNode.children.item(current).classList.add('active');
 
     // Add a bunch of listener
     nextNode.addEventListener('click', this.nextSlide.bind(this));
@@ -148,4 +150,5 @@
 
   var slideshow = new Slideshow(_slides);
   slideshow.init();
+  slideshow.play();
 })();

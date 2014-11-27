@@ -1,27 +1,30 @@
-var img = function(name, desc){
+var fs = require('fs');
+var path = '../../gclcimages/';
+
+var transitions = ['fade', 'translate'];
+
+var img = function(name, desc, transition, last_modified){
     this.name = name;
     this.desc = desc;
     this.transition = transition;
+	this.last_modified = last_modified;
 };
 
 img.prototype.toString = function imgToString(){
-    return "\n\t{\n\t\t\"name\": \""+this.name+"\",\n\t\t\"desc\": \""+this.desc+"\",\n\t\t\"transition\": \""+this.transition+"\"\n\t}";
+	return JSON.stringify(this);
 };
 
-var createJsonImages = function(){
-    var fs = require('fs');
-    var path = '../../gclcimages/';
+var getImgInfos = function(callback){
     var filePattern = /.prop/i;
     var descriptionPattern = /Description.*\n/;
 
-    var propList = [];
+	var response = {imgs: []};
 
     fs.readdir(path, function(err, files){
         if(err)
             throw err;
 
         var propFile, imageFile;
-        var transitions = ['fade', 'translate'];
         var transNumber = 0;
         var numberPropFiles = 0;
         var numberPushedFiles = 0;
@@ -43,13 +46,14 @@ var createJsonImages = function(){
                     var str='';
                     str += descriptionPattern.exec(data);
                     str = str.replace("Description=","").replace("Description:","").replace("\n","");
-                    propList.push(new img(imageFile, str, transitions[transNumber]));
-                    numberPushedFiles += 1;
+					
+					last_modified = fs.statSync(path+propFile).ctime;
+					
+                    response.imgs.push(new img(imageFile, str, transitions[transNumber], last_modified));
+					
+                    ++numberPushedFiles;
                     if(numberPushedFiles === numberPropFiles){
-                        var msg = "{ imgs : ["+propList+" \n\t]\n}";
-                        fs.writeFile('../../backofficeimages/imgs.info.json', msg, function (err) {
-                            if (err) throw err;
-                        });
+						callback(response);
                     }
                 });
             })(propFile, imageFile, transNumber);
@@ -58,4 +62,4 @@ var createJsonImages = function(){
     });
 };
 
-exports.createJsonImages = createJsonImages;
+exports.getImgInfos = getImgInfos;

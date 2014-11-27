@@ -53,7 +53,7 @@
 				z-index: 3;
 				position: absolute;
 			}
-			
+
 			#slideshow .next,#slideshow .prev{
 				position: absolute;
 				cursor: pointer;
@@ -61,23 +61,23 @@
 				background-size: 200% 300%;
 				background-position: 0 -100%;
 			}
-			
+
 			#slideshow .next{
 				right: 0;
 				background-position: 0 -100%;
 			}
-			
+
 			#slideshow .prev{
 				left: 0;
 				background-position: 0 -200%;
 			}
-			
+
 			#slideshow .nav{
 				position: absolute;
 				bottom: 0;
 				right: 0;
 			}
-			
+
 			#slideshow .bullet{
 				display: inline-block;
 				background-image: url('./img/sprite-bullet.png');
@@ -85,16 +85,16 @@
 				cursor: pointer;
 				background-position: -100% 0;
 			}
-			
+
 			#slideshow .bullet.active{
 				background-position: 0 0;
 			}
-			
+
 			#slideshow .counter{
 				position: absolute;
 				bottom: 0;
 			}
-			
+
 			#slideshow .status{
 				cursor: pointer;
 				position: absolute;
@@ -211,33 +211,13 @@
 				<div class="col-md-12">
 					<div id="slideshow">
 						<div class="slides">
-							<figure class="show">
-								<img src="../gclcimages/bach_creek_river.jpg" alt="" />
-								<figcaption>Un ruisseau ombragé</figcaption>
-							</figure>
-							<figure>
-								<img src="../gclcimages/canoe_water_nature.jpg" alt="" />
-								<figcaption>Une invitation à naviguer paisiblement</figcaption>
-							</figure>
-							<figure>
-								<img src="../gclcimages/gclc.png" alt="" />
-								<figcaption>le logo officiel du Green Code Lab Challenge </figcaption>
-							</figure>
-							<figure>
-								<img src="../gclcimages/guyana_sky_clouds.jpg" alt="" />
-								<figcaption>Landscape in Amazonian Guyana</figcaption>
-							</figure>
 						</div>
 						<div class="controls">
 							<div class="status playing"></div>
 							<a href="#" class="prev"></a>
 							<a href="#" class="next"></a>
-							<div class="counter">1 / 4</div>
+							<div class="counter"></div>
 							<nav class="nav">
-								<a href="#" class="active bullet" data-src="../gclcimages/bach_creek_river.jpg"></a>
-								<a href="#" class="bullet" data-src="../gclcimages/canoe_water_nature.jpg"></a>
-								<a href="#" class="bullet" data-src="../gclcimages/gclc.png"></a>
-								<a href="#" class="bullet" data-src="../gclcimages/guyana_sky_clouds.jpg"></a>
 							</nav>
 						</div>
 					</div>
@@ -283,12 +263,7 @@
 		<script type="text/javascript">
 		var _slides = {
 			id: '#slideshow',
-			slides: [
-				{src: '../gclcimages/bach_creek_river.jpg', caption: 'Un ruisseau ombragé'},
-				{src: '../gclcimages/canoe_water_nature.jpg', caption: 'Une invitation à naviguer paisiblement'},
-				{src: '../gclcimages/gclc.png', caption: 'le logo officiel du Green Code Lab Challenge'},
-				{src: '../gclcimages/guyana_sky_clouds.jpg', caption: 'Landscape in Amazonian Guyana'}
-			]
+			json: '/backofficeimages/imgs.info.json'
 		};
 		</script>
 		<script type="text/javascript" src="slides.js" async></script>

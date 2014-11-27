@@ -114,6 +114,20 @@
 			#slideshow .status.pause{
 				backgroun-position: -55px 0;
 			}
+
+			.sprite {
+				background: url("img/sprite-square.png") 0 0 no-repeat;
+				width: 55px;
+				height: 55px;
+			}
+
+			.sprite.playing {
+				background-position: 0px 0px;
+			}
+
+			.sprite.stopped {
+				background-position: -55px 0;
+			}
 		</style>
 	</head>
 	<body>
@@ -155,10 +169,10 @@
 							</figure>
 						</div>
 						<div class="controls">
-							<div class="status"></div>
-							<div class="prev"></div>
-							<div class="next"></div>
-							<div class="counter">1/4</div>
+							<div class="status sprite playing"></div>
+							<a href="#" class="prev">Prev</a>
+							<a href="#" class="next">Next</a>
+							<div class="counter">1 / 4</div>
 							<nav class="nav">
 								<a href="#" class="active bullet" data-src="../gclcimages/bach_creek_river.jpg"></a>
 								<a href="#" class="bullet" data-src="../gclcimages/canoe_water_nature.jpg"></a>

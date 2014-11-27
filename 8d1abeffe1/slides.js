@@ -11,13 +11,15 @@
   ]
 };
   */
-  var slides;
+  var slidesData, counterSeparator;
   var slidesNode, statusNode, prevNode, nextNode, counterNode, navNode;
-
+  var slidesNodeList;
   var current;
 
   function Slideshow(opts) {
-    slides = opts.slides;
+    this.autoplay = true;
+    slidesData = opts.slides;
+    counterSeparator = opts.counterSeparator || ' / ';
     var root = document.querySelector(opts.id);
 
     slidesNode = root.querySelector('.slides');
@@ -27,9 +29,32 @@
     counterNode = root.querySelector('.counter');
     navNode = root.querySelector('nav');
 
-    current = slidesNode.children.item(0);
-    console.log(current);
-  }
+    slidesNodeList = slidesNode.children;
+
+    current = 0;
+  };
+
+  Slideshow.prototype.slideTo = function(to) {
+    console.log('slide from ' + current + ' to ' + to);
+    var cur = slidesNodeList.item(current),
+    dest = slidesNodeList.item(to);
+
+    cur.classList.toggle('show');
+    dest.classList.toggle('show');
+
+    current = to;
+
+    counterNode.textContent = (current + 1) + counterSeparator + slidesNodeList.length;
+  };
+
+  Slideshow.prototype.nextSlide = function nextSlide() {
+    this.slideTo((current + 1) % slidesNodeList.length);
+  };
+
+  Slideshow.prototype.prevSlide = function prevSlide() {
+    var len = slidesNodeList.length;
+    this.slideTo( (((current-1)%len)+len)%len );
+  };
 
   Slideshow.prototype.init = function() {
     var links = navNode.getElementsByTagName('a'),
@@ -39,33 +64,47 @@
       var a = links[i];
       a.addEventListener('click', function(event){
         // toggle current image
-        current.classList.toggle('show');
-
-        // toggle dest image
-        var dest = slidesNode.children.item(this);
-        dest.classList.toggle('show');
-
-        current = dest;
-      }.bind(i));
+        this.slideshow.slideTo(this.to);
+      }.bind({slideshow: this, to: i}));
     }
-  }
 
-  var slideshow = new Slideshow(_slides);
+    nextNode.addEventListener('click', this.nextSlide.bind(this));
+    prevNode.addEventListener('click', this.prevSlide.bind(this));
+    statusNode.addEventListener('click', this.toggleAutoplay.bind(this));
+
+    var timeout = function(){
+      if(this.autoplay) {
+        this.nextSlide();
+      }
+      setTimeout(timeout.bind(this), 3000);
+    };
+
+    setTimeout(timeout.bind(this), 3000);
+  };
+
+  Slideshow.prototype.toggleAutoplay = function() {
+    this.autoplay = this.autoplay ? false : true;
+
+    statusNode.classList.toggle('playing');
+    statusNode.classList.toggle('stopped');
+  };
+
+  slideshow = new Slideshow(_slides);
   slideshow.init();
-  
+
   Slideshow.prototype.lazyLoad = function(index)
   {
 	var prev, next;
 
 	this.load(index);
-	  
+
 	prev = (index===0)?slides.length:index-1;
 	this.load(prev);
-	
-	next = ((index+1)===slides.length)?0:index+1;	
+
+	next = ((index+1)===slides.length)?0:index+1;
 	this.load(next);
   };
-  
+
   Slideshow.prototype.load = function(index)
   {
 	if(!slides[index].load)

@@ -18,7 +18,7 @@
 		<style>
 			#slideshow, #slideshow .controls {
 				overflow: hidden;
-				height: 380px;
+				height: 425px;
 				width: 900px;
 			}
 
@@ -46,6 +46,11 @@
 
 			#slideshow .slides figcaption {
 				text-align: center;
+				height: 30px;
+				background-color: #818884;
+				line-height: 30px;
+				color: #ffffff;
+				font-size: 14px;
 			}
 
 			#slideshow .controls {
@@ -53,17 +58,60 @@
 				position: absolute;
 			}
 
-			.sprite {
-				background: url("img/sprite-square.png") 0 0 no-repeat;
-				width: 55px;
-				height: 55px;
+			#slideshow .next,#slideshow .prev{
+				position: absolute;
+				width: 54px;
+				height: 54px;
+				top: 170px;
+				cursor: pointer;
+				background: url('./img/sprite-square-opt.png') 0 -55px;
 			}
 
-			.sprite.playing {
-				background-position: 0px 0px;
+			#slideshow .next{
+				right: 0;
 			}
 
-			.sprite.stopped {
+			#slideshow .prev{
+				left: 0;
+				background-position: 0 -110px;
+			}
+
+			#slideshow .nav{
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
+
+			#slideshow .bullet{
+				display: inline-block;
+				width: 19px;
+				height: 18px;
+				margin-left: 10px;
+				background: url('./img/sprite-bullet.png') -19px 0;
+				pointer: cursor;
+			}
+
+			#slideshow .bullet.active{
+				background-position: 0 0;
+			}
+
+			#slideshow .counter{
+				position: absolute;
+				bottom: 0;
+				left: 10px;
+			}
+
+			#slideshow .status{
+				cursor: pointer;
+				top: 10px;
+				right: 10px;
+				position: absolute;
+				width: 54px;
+				height: 54px;
+				background: url('./img/sprite-square-opt.png') 0 0;
+			}
+
+			#slideshow .status.stopped{
 				background-position: -55px 0;
 			}
 		</style>
@@ -91,9 +139,9 @@
 						<div class="slides">
 						</div>
 						<div class="controls">
-							<div class="status sprite playing"></div>
-							<a href="#" class="prev">Prev</a>
-							<a href="#" class="next">Next</a>
+							<div class="status playing"></div>
+							<a href="#" class="prev"></a>
+							<a href="#" class="next"></a>
 							<div class="counter">1 / 4</div>
 							<nav class="nav">
 							</nav>

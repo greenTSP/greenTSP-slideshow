@@ -15,6 +15,106 @@
 		<link href='http://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
 		<!-- This is a nice empty css. Feel free to override the theme! -->
 		<link href="css/gclc.css" rel="stylesheet">
+		<style>
+			#slideshow, #slideshow .controls {
+				overflow: hidden;
+				height: 425px;
+				width: 900px;
+			}
+
+			#slideshow .slides figure {
+				width: 900px;
+				position: absolute;
+				opacity: 0;
+				-moz-transition: all 800ms ease-in;
+				-webkit-transition: all 800ms ease-in;
+				-o-transition: all 800ms ease-in;
+				-ms-transition: all 800ms ease-in;
+				transition: all 800ms ease-in;
+				z-index: 1;
+			}
+
+			#slideshow .slides img {
+				width: 100%;
+				height: 360px;
+			}
+
+			#slideshow .slides .show {
+				opacity: 1;
+				z-index: 3;
+			}
+
+			#slideshow .slides figcaption {
+				text-align: center;
+				height: 30px;
+				background-color: #818884;
+				line-height: 30px;
+				color: #ffffff;
+				font-size: 14px;
+			}
+
+			#slideshow .controls {
+				z-index: 3;
+				position: absolute;
+			}
+			
+			#slideshow .next,#slideshow .prev{
+				position: absolute;
+				width: 54px;
+				height: 54px;
+				top: 170px;
+				cursor: pointer;
+				background: url('./img/sprite-square-opt.png') 0 -55px;
+			}
+			
+			#slideshow .next{
+				right: 0;
+			}
+			
+			#slideshow .prev{
+				left: 0;
+				background-position: 0 -110px;
+			}
+			
+			#slideshow .nav{
+				position: absolute;
+				bottom: 0;
+				right: 0;
+			}
+			
+			#slideshow .bullet{
+				display: inline-block;
+				width: 19px;
+				height: 18px;
+				margin-left: 10px;
+				background: url('./img/sprite-bullet.png') -19px 0;
+				pointer: cursor;
+			}
+			
+			#slideshow .bullet.active{
+				background-position: 0 0;
+			}
+			
+			#slideshow .counter{
+				position: absolute;
+				bottom: 0;
+				left: 10px;
+			}
+			
+			#slideshow .status{
+				cursor: pointer;
+				top: 10px;
+				right: 10px;
+				position: absolute;
+				width: 54px;
+				height: 54px;
+				background: url('./img/sprite-square-opt.png') 0 0;
+			}
+			
+			#slideshow .status.stopped{
+				background-position: -55px 0;
+			}
+		</style>
 	</head>
 	<body>
 		<nav class="navbar glc-navbar navbar-fixed-top" role="navigation">
@@ -34,31 +134,47 @@
 		</div>
 		<div class="container">
 			<div class="row">
-				<div id="slideshow">
-					<figure>
-						<img src="../gclcimages/bach_creek_river.jpg" alt="" width="900" height="360" />
-						<figcaption>Un ruisseau ombragé</figcaption>
-					</figure>
-					<figure>
-						<img src="../gclcimages/canoe_water_nature.jpg" alt="" width="900" height="360" />
-						<figcaption>Une invitation à naviguer paisiblement</figcaption>
-					</figure>
-					<figure>
-						<img src="../gclcimages/gclc.png" alt="" width="900" height="360" />
-						<figcaption>le logo officiel du Green Code Lab Challenge </figcaption>
-					</figure>
-					<figure>
-						<img src="../gclcimages/guyana_sky_clouds.jpg" alt="" width="900" height="360" />
-						<figcaption>Landscape in Amazonian Guyana</figcaption>
-					</figure>
+				<div class="col-md-12">
+					<div id="slideshow">
+						<div class="slides">
+							<figure class="show">
+								<img src="../gclcimages/bach_creek_river.jpg" alt="" />
+								<figcaption>Un ruisseau ombragé</figcaption>
+							</figure>
+							<figure>
+								<img src="../gclcimages/canoe_water_nature.jpg" alt="" />
+								<figcaption>Une invitation à naviguer paisiblement</figcaption>
+							</figure>
+							<figure>
+								<img src="../gclcimages/gclc.png" alt="" />
+								<figcaption>le logo officiel du Green Code Lab Challenge </figcaption>
+							</figure>
+							<figure>
+								<img src="../gclcimages/guyana_sky_clouds.jpg" alt="" />
+								<figcaption>Landscape in Amazonian Guyana</figcaption>
+							</figure>
+						</div>
+						<div class="controls">
+							<div class="status playing"></div>
+							<a href="#" class="prev"></a>
+							<a href="#" class="next"></a>
+							<div class="counter">1 / 4</div>
+							<nav class="nav">
+								<a href="#" class="active bullet" data-src="../gclcimages/bach_creek_river.jpg"></a>
+								<a href="#" class="bullet" data-src="../gclcimages/canoe_water_nature.jpg"></a>
+								<a href="#" class="bullet" data-src="../gclcimages/gclc.png"></a>
+								<a href="#" class="bullet" data-src="../gclcimages/guyana_sky_clouds.jpg"></a>
+							</nav>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-md-4">
 					<h2>Who will be the best Green developer in this latest edition ? </h2>
 					<p>
-						Eco-design software, is new. Your mission in the month before the contest 
-						is to make a short video explaining to a general public the impact of the software. you then publish 
+						Eco-design software, is new. Your mission in the month before the contest
+						is to make a short video explaining to a general public the impact of the software. you then publish
 						this video on the networks. The most viral video will be rewarded and will bring you points in the final standings.
 					</p>
 				</div>
@@ -77,7 +193,9 @@
 				<div class="col-md-4">
 					<h2>What's hot on Twitter?</h2>
 					<a class="twitter-timeline" href="https://twitter.com/hashtag/GCLChallenge" data-widget-id="537334197569200128">Tweets sur #GCLChallenge</a>
-					<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+					<script>
+						!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+"://platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");
+					</script>
 					<h4 style="text-align:center"><span class="well">Share your thoughts!</span></h4>
 				</div>
 			</div>
@@ -88,7 +206,18 @@
 				</p>
 			</footer>
 		</div>
-		<!-- We've included jQuery. But you can of course use any other lib! -->
-		<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+		<script type="text/javascript">
+		var _slides = {
+			id: '#slideshow',
+			slides: [
+				{src: '../gclcimages/bach_creek_river.jpg', caption: 'Un ruisseau ombragé'},
+				{src: '../gclcimages/canoe_water_nature.jpg', caption: 'Une invitation à naviguer paisiblement'},
+				{src: '../gclcimages/gclc.png', caption: 'le logo officiel du Green Code Lab Challenge'},
+				{src: '../gclcimages/guyana_sky_clouds.jpg', caption: 'Landscape in Amazonian Guyana'}
+			]
+		};
+		</script>
+		<script type="text/javascript" src="slides.js" async></script>
+
 	</body>
 </html>

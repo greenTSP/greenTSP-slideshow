@@ -1,18 +1,9 @@
 var fs = require('fs');
+var img_constructor = require('./img.js').img;
+
 var path = '../../gclcimages/';
 
 var transitions = ['fade', 'translate'];
-
-var img = function(name, desc, transition, last_modified){
-    this.name = name;
-    this.desc = desc;
-    this.transition = transition;
-	this.last_modified = last_modified;
-};
-
-img.prototype.toString = function imgToString(){
-	return JSON.stringify(this);
-};
 
 var getImgInfos = function(callback){
     var filePattern = /.prop/i;
@@ -49,7 +40,7 @@ var getImgInfos = function(callback){
 					
 					last_modified = fs.statSync(path+propFile).ctime;
 					
-                    response.imgs.push(new img(imageFile, str, transitions[transNumber], last_modified));
+                    response.imgs.push(new img_constructor(imageFile, str, transitions[transNumber], last_modified, true));
 					
                     ++numberPushedFiles;
                     if(numberPushedFiles === numberPropFiles){

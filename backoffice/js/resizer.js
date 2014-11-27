@@ -1,4 +1,4 @@
-
+var img_constructor = require('./img.js').img;
 var fs = require('fs');
 
 var exec = require('child_process').exec;
@@ -96,7 +96,47 @@ var resizeImage = function(input, output, sizeX, sizeY, callback){
 	});
 };
 
-var resizeIfNeeded = function(folder, infos, oldInfos){	
+var exportBackofficeImg = function(filename, description, input, callback){
+	resizer.exportImg(filename,input);
+	
+	var infos = getInfos();
+	var n = infos.imgs.length;
+	var added = false;
+	
+	for(var i=0; i<n ; i++)
+	{
+		var old_img = infos.imgs[i];
+		if(old_img === filename)
+		{
+			infos.imgs[i] = new img_constructor(filename, description, old_img.transition, new Date(), false);
+			added = true;
+			break;
+		}
+	}
+	if(!added)
+		infos.push(new img_constructor(filename, description, (i%2===0)?'fade':'translate', new Date(), false));
+	
+	exportToJson(infos);
+};
+
+var exportToJson = function(infos){
+	resizer.exportGclImg('../../gclcimages/', infos, oldInfos);
+	
+	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), function (err) {
+		if (err) throw err;
+	});
+};
+
+var getInfos = function(){
+	if(!fs.existsSync('../../backofficeimages/imgs.info.json'))
+		return {"imgs":[]};
+	
+	return JSON.parse(fs.readFileSync('../../backofficeimages/imgs.info.json'));
+};
+
+var oldInfos = getInfos();
+
+var exportGclImg = function(folder, infos, oldInfos){	
 	var i = 0;
 	
 	var n = infos.imgs.length;
@@ -134,14 +174,14 @@ var resizeIfNeeded = function(folder, infos, oldInfos){
 	for(i=0; i<old_n; i++)
 	{
 		var oldImg = oldInfos.imgs[i];
-		if(filenames.indexOf(oldImg.name) === -1){
+		if(oldImg.isGclImg &&filenames.indexOf(oldImg.name) === -1){
 			fs.unlink(output.small+oldImg.name);
 			fs.unlink(output.large+oldImg.name);
 		}
 	}
 };
 
-exports.resizeIfNeeded = resizeIfNeeded;
+exports.exportGclImg = exportGclImg;
 exports.exportImg = resizer.exportImg;
 exports.setPngOptimizer = resizer.setPngOptimizer;
 exports.setJpegOptimizer = resizer.setJpegOptimizer;

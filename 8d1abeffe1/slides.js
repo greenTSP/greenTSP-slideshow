@@ -24,31 +24,10 @@
   }
 
   function Slideshow(opts) {
-    slidesData = opts.slides;
+
     autoplayTime = opts.autoplayTime || 3000;
     counterSeparator = opts.counterSeparator || ' / ';
     var root = document.querySelector(opts.id);
-
-    if(opts.json) {
-      // load json content as slidesData
-      request = new XMLHttpRequest();
-      request.onreadystatechange = function() {
-        if (request.readyState === 4) {
-          if (request.status === 200) {
-            slidesData = JSON.parse(request.responseText).imgs;
-            console.log(slidesData);
-
-            this.init();
-            this.play();
-          } else {
-            console.error('There was a problem with the request.');
-          }
-        }
-      }.bind(this);
-      request.open('GET', './images.json');
-      request.send();
-    }
-
 
     slidesNode = root.querySelector('.slides');
     statusNode = root.querySelector('.status');
@@ -60,6 +39,31 @@
     // List of slides
     slidesNodeList = slidesNode.children;
     current = 0;
+
+    if(opts.slides) {
+      // We can provide data as
+      slidesData = opts.slides;
+
+      this.init();
+      this.play();
+    } else if(opts.json) {
+      // load json content as slidesData
+      request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+          if (request.status === 200) {
+            slidesData = JSON.parse(request.responseText).imgs;
+
+            this.init();
+            this.play();
+          } else {
+            console.error('There was a problem with the request.');
+          }
+        }
+      }.bind(this);
+      request.open('GET', opts.json);
+      request.send();
+    }
   };
 
   Slideshow.prototype.slideTo = function(to) {
@@ -149,5 +153,10 @@
     statusNode.classList.toggle('stopped');
   };
 
-  var slideshow = new Slideshow(_slides);
+  // Provide it as a module for everyone to use
+  window.Slideshow = Slideshow;
+
+  if(_slides) {
+    new Slideshow(_slides);
+  }
 })();

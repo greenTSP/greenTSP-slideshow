@@ -25,22 +25,89 @@
 			#slideshow .slides figure {
 				width: 100%;
 				position: absolute;
-				opacity: 0;
-				-moz-transition: all 800ms ease-in;
-				-webkit-transition: all 800ms ease-in;
-				-o-transition: all 800ms ease-in;
-				-ms-transition: all 800ms ease-in;
-				transition: all 800ms ease-in;
 				z-index: 1;
+				opacity: 0;
+				left: -100%;
+			}
+
+			#slideshow .slides figure.translate {
+				-webkit-animation: translate-out 0.8s;
+				animation: translate-out 0.8s;
+			}
+
+			#slideshow .slides figure.fade {
+				-webkit-animation: fade-out 0.8s;
+				animation: fade-out 0.8s;
 			}
 
 			#slideshow .slides img {
 				width: 100%;
 			}
 
-			#slideshow .slides .show {
+			#slideshow .slides figure.show {
 				opacity: 1;
+				left: 0;
 				z-index: 3;
+				-webkit-animation: fade-in 0.8s;
+				animation: fade-in 0.8s;
+			}
+
+			#slideshow .slides figure.fade.show {
+				-webkit-animation: fade-in 0.8s;
+				animation: fade-in 0.8s;
+			}
+
+			#slideshow .slides figure.translate.show {
+				-webkit-animation: translate-in 0.8s;
+				animation: translate-in 0.8s;
+			}
+			
+			/* Chrome, Safari, Opera */
+			@-webkit-keyframes fade-in {
+				from {opacity: 0; left: 0;z-index: 1;}
+				to {opacity: 1; left: 0;z-index: 3;}
+			}
+
+			/* Standard syntax */
+			@keyframes fade-in {
+				from {opacity: 0; left: 0;z-index: 3;}
+				to {opacity: 1; left: 0;z-index: 1;}
+			}
+			
+			/* Chrome, Safari, Opera */
+			@-webkit-keyframes fade-out {
+				from {opacity: 1; left: 0;}
+				to {opacity: 0; left: 0;}
+			}
+
+			/* Standard syntax */
+			@keyframes fade-out {
+				from {opacity: 1; left: 0;}
+				to {opacity: 0; left: 0;}
+			}
+			
+			/* Chrome, Safari, Opera */
+			@-webkit-keyframes translate-in {
+				from {opacity: 1; left: -100%;}
+				to {opacity: 1; left: 0;}
+			}
+
+			/* Standard syntax */
+			@keyframes translate-in {
+				from {opacity: 1; left: -100%;}
+				to {opacity: 1; left: 0;}
+			}
+			
+			/* Chrome, Safari, Opera */
+			@-webkit-keyframes translate-out {
+				from {opacity: 1; left: 0;}
+				to {opacity: 1; left: 100%;}
+			}
+
+			/* Standard syntax */
+			@keyframes translate-out {
+				from {opacity: 1; left: 0;}
+				to {opacity: 1; left: 100%;}
 			}
 
 			#slideshow .slides figcaption {

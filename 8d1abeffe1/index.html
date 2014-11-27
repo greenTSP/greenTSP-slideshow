@@ -111,21 +111,7 @@
 				background: url('./img/sprite-square-opt.png') 0 0;
 			}
 			
-			#slideshow .status.pause{
-				backgroun-position: -55px 0;
-			}
-
-			.sprite {
-				background: url("img/sprite-square.png") 0 0 no-repeat;
-				width: 55px;
-				height: 55px;
-			}
-
-			.sprite.playing {
-				background-position: 0px 0px;
-			}
-
-			.sprite.stopped {
+			#slideshow .status.stopped{
 				background-position: -55px 0;
 			}
 		</style>
@@ -169,9 +155,9 @@
 							</figure>
 						</div>
 						<div class="controls">
-							<div class="status sprite playing"></div>
-							<a href="#" class="prev">Prev</a>
-							<a href="#" class="next">Next</a>
+							<div class="status playing"></div>
+							<a href="#" class="prev"></a>
+							<a href="#" class="next"></a>
 							<div class="counter">1 / 4</div>
 							<nav class="nav">
 								<a href="#" class="active bullet" data-src="../gclcimages/bach_creek_river.jpg"></a>

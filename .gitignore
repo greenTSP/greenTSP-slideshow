@@ -1,2 +1,5 @@
 /nbproject/private/
 docker_command.sh
+/backofficeimages/large/*
+/backofficeimages/small/*
+/backofficeimages/imgs.info.json

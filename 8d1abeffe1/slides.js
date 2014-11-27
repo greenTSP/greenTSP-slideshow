@@ -11,13 +11,14 @@
   ]
 };
   */
-  var slidesData;
+  var slidesData, counterSeparator;
   var slidesNode, statusNode, prevNode, nextNode, counterNode, navNode;
   var slidesNodeList;
   var current;
 
   function Slideshow(opts) {
     slidesData = opts.slides;
+    counterSeparator = opts.counterSeparator || ' / ';
     var root = document.querySelector(opts.id);
 
     slidesNode = root.querySelector('.slides');
@@ -41,6 +42,8 @@
     dest.classList.toggle('show');
 
     current = to;
+
+    statusNode.textContent = (current + 1) + counterSeparator + slidesNodeList.length;
   }
 
   Slideshow.prototype.init = function() {

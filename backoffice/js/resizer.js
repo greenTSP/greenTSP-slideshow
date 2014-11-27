@@ -88,8 +88,8 @@ var optimPNG = function(imgpath, callback){
 }
 
 var resizeImage = function(input, output, sizeX, sizeY, callback){
-	var command = converter + " " + input + " " + converterOptions +" " + "-resize "+sizeX + "x" + sizeY + " " + output;
-	
+	var command = converter + " " + input + " " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 " + output;
+	console.log(command);
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
 			callback(err, output);

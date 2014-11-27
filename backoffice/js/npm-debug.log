@@ -1,0 +1,149 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'D:\\Programs\\node.js\\\\node.exe',
+1 verbose cli   'D:\\Programs\\node.js\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'install' ]
+2 info using npm@1.4.28
+3 info using node@v0.10.33
+4 verbose node symlink D:\Programs\node.js\\node.exe
+5 warn package.json backOfficeServer@0.1.0 No description
+6 warn package.json backOfficeServer@0.1.0 No repository field.
+7 warn package.json backOfficeServer@0.1.0 No README data
+8 verbose readDependencies using package.json deps
+9 verbose install where, deps [ 'D:\\Users\\Clément\\Documents\\GreenCodeLab\\greenTSP\\backoffice\\js',
+9 verbose install   [ 'express', 'multer' ] ]
+10 info preinstall backOfficeServer@0.1.0
+11 verbose readDependencies using package.json deps
+12 verbose cache add [ 'express@4.10.14', null ]
+13 verbose cache add name=undefined spec="express@4.10.14" args=["express@4.10.14",null]
+14 verbose parsed url { protocol: null,
+14 verbose parsed url   slashes: null,
+14 verbose parsed url   auth: null,
+14 verbose parsed url   host: null,
+14 verbose parsed url   port: null,
+14 verbose parsed url   hostname: null,
+14 verbose parsed url   hash: null,
+14 verbose parsed url   search: null,
+14 verbose parsed url   query: null,
+14 verbose parsed url   pathname: 'express@4.10.14',
+14 verbose parsed url   path: 'express@4.10.14',
+14 verbose parsed url   href: 'express@4.10.14' }
+15 verbose cache add [ 'multer@0.1.6', null ]
+16 verbose cache add name=undefined spec="multer@0.1.6" args=["multer@0.1.6",null]
+17 verbose parsed url { protocol: null,
+17 verbose parsed url   slashes: null,
+17 verbose parsed url   auth: null,
+17 verbose parsed url   host: null,
+17 verbose parsed url   port: null,
+17 verbose parsed url   hostname: null,
+17 verbose parsed url   hash: null,
+17 verbose parsed url   search: null,
+17 verbose parsed url   query: null,
+17 verbose parsed url   pathname: 'multer@0.1.6',
+17 verbose parsed url   path: 'multer@0.1.6',
+17 verbose parsed url   href: 'multer@0.1.6' }
+18 verbose cache add name="express" spec="4.10.14" args=["express","4.10.14"]
+19 verbose parsed url { protocol: null,
+19 verbose parsed url   slashes: null,
+19 verbose parsed url   auth: null,
+19 verbose parsed url   host: null,
+19 verbose parsed url   port: null,
+19 verbose parsed url   hostname: null,
+19 verbose parsed url   hash: null,
+19 verbose parsed url   search: null,
+19 verbose parsed url   query: null,
+19 verbose parsed url   pathname: '4.10.14',
+19 verbose parsed url   path: '4.10.14',
+19 verbose parsed url   href: '4.10.14' }
+20 verbose addNamed [ 'express', '4.10.14' ]
+21 verbose addNamed [ '4.10.14', '4.10.14' ]
+22 verbose cache add name="multer" spec="0.1.6" args=["multer","0.1.6"]
+23 verbose parsed url { protocol: null,
+23 verbose parsed url   slashes: null,
+23 verbose parsed url   auth: null,
+23 verbose parsed url   host: null,
+23 verbose parsed url   port: null,
+23 verbose parsed url   hostname: null,
+23 verbose parsed url   hash: null,
+23 verbose parsed url   search: null,
+23 verbose parsed url   query: null,
+23 verbose parsed url   pathname: '0.1.6',
+23 verbose parsed url   path: '0.1.6',
+23 verbose parsed url   href: '0.1.6' }
+24 verbose addNamed [ 'multer', '0.1.6' ]
+25 verbose addNamed [ '0.1.6', '0.1.6' ]
+26 silly lockFile 716ffb6e-express-4-10-14 express@4.10.14
+27 verbose lock express@4.10.14 C:\Users\Clément\AppData\Roaming\npm-cache\716ffb6e-express-4-10-14.lock
+28 silly lockFile a9e82b17-multer-0-1-6 multer@0.1.6
+29 verbose lock multer@0.1.6 C:\Users\Clément\AppData\Roaming\npm-cache\a9e82b17-multer-0-1-6.lock
+30 verbose request where is /multer
+31 verbose request registry https://registry.npmjs.org/
+32 verbose request id f768ae226790ee04
+33 verbose url raw /multer
+34 verbose url resolving [ 'https://registry.npmjs.org/', './multer' ]
+35 verbose url resolved https://registry.npmjs.org/multer
+36 verbose request where is https://registry.npmjs.org/multer
+37 info trying registry request attempt 1 at 18:40:47
+38 verbose etag "E76RJP3HW1OT21DE70969S81X"
+39 http GET https://registry.npmjs.org/multer
+40 verbose request where is /express
+41 verbose request registry https://registry.npmjs.org/
+42 verbose url raw /express
+43 verbose url resolving [ 'https://registry.npmjs.org/', './express' ]
+44 verbose url resolved https://registry.npmjs.org/express
+45 verbose request where is https://registry.npmjs.org/express
+46 info trying registry request attempt 1 at 18:40:47
+47 verbose etag "D8JTMIQ8XPUUFQZSDDUIKJ3RR"
+48 http GET https://registry.npmjs.org/express
+49 http 200 https://registry.npmjs.org/express
+50 silly registry.get cb [ 200,
+50 silly registry.get   { date: 'Thu, 27 Nov 2014 17:40:44 GMT',
+50 silly registry.get     server: 'CouchDB/1.5.0 (Erlang OTP/R14B04)',
+50 silly registry.get     etag: '"ES8JBR2P74PEH37VKL0HEE48G"',
+50 silly registry.get     'content-type': 'application/json',
+50 silly registry.get     'cache-control': 'max-age=60',
+50 silly registry.get     'content-length': '431284',
+50 silly registry.get     'accept-ranges': 'bytes',
+50 silly registry.get     via: '1.1 varnish',
+50 silly registry.get     age: '45',
+50 silly registry.get     'x-served-by': 'cache-fra1229-FRA',
+50 silly registry.get     'x-cache': 'HIT',
+50 silly registry.get     'x-cache-hits': '1',
+50 silly registry.get     'x-timer': 'S1417110044.304851,VS0,VE2',
+50 silly registry.get     vary: 'Accept',
+50 silly registry.get     'keep-alive': 'timeout=10, max=50',
+50 silly registry.get     connection: 'Keep-Alive' } ]
+51 silly lockFile 716ffb6e-express-4-10-14 express@4.10.14
+52 silly lockFile 716ffb6e-express-4-10-14 express@4.10.14
+53 http 304 https://registry.npmjs.org/multer
+54 silly registry.get cb [ 304,
+54 silly registry.get   { date: 'Thu, 27 Nov 2014 17:40:44 GMT',
+54 silly registry.get     server: 'Apache',
+54 silly registry.get     via: '1.1 varnish',
+54 silly registry.get     'last-modified': 'Thu, 27 Nov 2014 17:40:45 GMT',
+54 silly registry.get     'cache-control': 'max-age=60',
+54 silly registry.get     etag: '"E76RJP3HW1OT21DE70969S81X"',
+54 silly registry.get     age: '0',
+54 silly registry.get     'x-served-by': 'cache-fra1247-FRA',
+54 silly registry.get     'x-cache': 'HIT',
+54 silly registry.get     'x-cache-hits': '1',
+54 silly registry.get     'x-timer': 'S1417110044.311752,VS0,VE736',
+54 silly registry.get     vary: 'Accept',
+54 silly registry.get     'content-length': '0',
+54 silly registry.get     'keep-alive': 'timeout=10, max=50',
+54 silly registry.get     connection: 'Keep-Alive' } ]
+55 verbose etag https://registry.npmjs.org/multer from cache
+56 silly lockFile a9e82b17-multer-0-1-6 multer@0.1.6
+57 silly lockFile a9e82b17-multer-0-1-6 multer@0.1.6
+58 error Error: version not found: express@4.10.14
+58 error     at D:\Programs\node.js\node_modules\npm\lib\cache\add-named.js:125:12
+58 error     at saved (D:\Programs\node.js\node_modules\npm\node_modules\npm-registry-client\lib\get.js:167:7)
+58 error     at Object.oncomplete (fs.js:107:15)
+59 error If you need help, you may report this *entire* log,
+59 error including the npm and node versions, at:
+59 error     <http://github.com/npm/npm/issues>
+60 error System Windows_NT 6.1.7601
+61 error command "D:\\Programs\\node.js\\\\node.exe" "D:\\Programs\\node.js\\node_modules\\npm\\bin\\npm-cli.js" "install"
+62 error cwd D:\Users\Clément\Documents\GreenCodeLab\greenTSP\backoffice\js
+63 error node -v v0.10.33
+64 error npm -v 1.4.28
+65 verbose exit [ 1, true ]

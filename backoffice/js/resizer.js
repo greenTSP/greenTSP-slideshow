@@ -4,10 +4,10 @@ var fs = require('fs');
 var exec = require('child_process').exec;
 var sys = require('sys');
 
-var jpegoptim = "/usr/local/bin/jpegoptim";
+//var jpegoptim = "/usr/local/bin/jpegoptim";
 var jpegoptions = "--max=90 --all-progressive --strip-all --preserve --totals";
 
-var optipng = "/usr/bin/optipng";
+var optipng = "/usr/local/bin/optipng";
 var pngoptions = "-o2 -preserve";
 
 var converter = "/usr/bin/convert";

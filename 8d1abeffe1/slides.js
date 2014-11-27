@@ -45,6 +45,7 @@
 
     statusNode.textContent = (current + 1) + counterSeparator + slidesNodeList.length;
   }
+    counterNode.textContent = (current + 1) + counterSeparator + slidesNodeList.length;
 
   Slideshow.prototype.init = function() {
     var links = navNode.getElementsByTagName('a'),

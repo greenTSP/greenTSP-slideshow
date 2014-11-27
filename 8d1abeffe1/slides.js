@@ -13,9 +13,7 @@
   */
   var slidesData;
   var slidesNode, statusNode, prevNode, nextNode, counterNode, navNode;
-
   var slidesNodeList;
-
   var current;
 
   function Slideshow(opts) {
@@ -34,6 +32,17 @@
     current = 0;
   }
 
+  Slideshow.prototype.slideTo = function(to) {
+    console.log('slide from ' + current + ' to ' + to);
+    var cur = slidesNodeList.item(current),
+    dest = slidesNodeList.item(to);
+
+    cur.classList.toggle('show');
+    dest.classList.toggle('show');
+
+    current = to;
+  }
+
   Slideshow.prototype.init = function() {
     var links = navNode.getElementsByTagName('a'),
         len = links.length;
@@ -42,56 +51,36 @@
       var a = links[i];
       a.addEventListener('click', function(event){
         // toggle current image
-        slidesNodeList.item(current).classList.toggle('show');
-
-        // toggle dest image
-        var dest = slidesNode.children.item(this);
-        dest.classList.toggle('show');
-
-        current = i;
-      }.bind(i));
+        this.slideshow.slideTo(this.to);
+      }.bind({slideshow: this, to: i}));
     }
 
-    nextNode.addEventListener('click', nextSlide);
-    prevNode.addEventListener('click', prevSlide);
-  }
+    nextNode.addEventListener('click', function nextSlide(event) {
+      this.slideTo((current + 1) % slidesNodeList.length);
+    }.bind(this));
 
-  function nextSlide(event) {
-    console.log('toggle ' + current + ' and ' + (current + 1));
-    var dest = slidesNodeList.item(current + 1),
-        cur = slidesNodeList.item(current);
-    console.log(dest, cur);
-
-    cur.classList.toggle('show');
-    dest.classList.toggle('show');
-  }
-
-  function prevSlide(event) {
-    console.log('toggle ' + current + ' and ' + (current + 1));
-    var dest = slidesNodeList.item(current - 1),
-    cur = slidesNodeList.item(current);
-    console.log(dest, cur);
-
-    cur.classList.toggle('show');
-    dest.classList.toggle('show');
+    prevNode.addEventListener('click', function prevSlide(event) {
+      var len = slidesNodeList.length;
+      this.slideTo( (((current-1)%len)+len)%len );
+    }.bind(this));
   }
 
   var slideshow = new Slideshow(_slides);
   slideshow.init();
-  
+
   Slideshow.prototype.lazyLoad = function(index)
   {
 	var prev, next;
 
 	this.load(index);
-	  
+
 	prev = (index===0)?slides.length:index-1;
 	this.load(prev);
-	
-	next = ((index+1)===slides.length)?0:index+1;	
+
+	next = ((index+1)===slides.length)?0:index+1;
 	this.load(next);
   };
-  
+
   Slideshow.prototype.load = function(index)
   {
 	if(!slides[index].load)

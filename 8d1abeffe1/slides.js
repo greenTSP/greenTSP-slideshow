@@ -134,6 +134,12 @@
     root.addEventListener('touchmove', touch.move.bind(touch));
     root.addEventListener('touchend', touch.end.bind(touch));
 
+    // Let some event deactivate the autoplay
+    root.addEventListener('mouseover', this.pause.bind(this));
+    root.addEventListener('mouseout', this.play.bind(this));
+    root.addEventListener('focus', this.pause.bind(this));
+    root.addEventListener('blur', this.play.bind(this));
+
     // Autoplay repetition logic.
     var timeout = function(){
       if(this.autoplay) {
@@ -149,6 +155,12 @@
     this.autoplay = true;
     statusNode.classList.add('playing');
     statusNode.classList.remove('stopped');
+  }
+
+  Slideshow.prototype.pause = function() {
+    this.autoplay = false;
+    statusNode.classList.remove('playing');
+    statusNode.classList.add('stopped');
   }
 
   Slideshow.prototype.toggleAutoplay = function() {
@@ -172,6 +184,7 @@
 
   TouchListener.prototype.start = function(e) {
     console.log('touchstart');
+    this.slideshow.pause();
 
     var touchobj = e.changedTouches[0];
     this.dist = 0;
@@ -205,6 +218,8 @@
         this.slideshow.prevSlide();
       }
     }
+
+    this.slideshow.play();
   };
 
   // Provide it as a module for everyone to use

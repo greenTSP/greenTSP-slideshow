@@ -90,7 +90,7 @@
   };
 
   Slideshow.prototype.init = function() {
-    var format = 'large'; // or small if on mobile
+    var format = (screen.width <= 768) ? 'small' : 'large';
 
     // Generate the slides
     for(var i = 0; i < slidesData.length; i++) {

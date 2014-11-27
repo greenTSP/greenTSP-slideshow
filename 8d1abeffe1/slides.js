@@ -29,6 +29,26 @@
     counterSeparator = opts.counterSeparator || ' / ';
     var root = document.querySelector(opts.id);
 
+    if(opts.json) {
+      // load json content as slidesData
+      request = new XMLHttpRequest();
+      request.onreadystatechange = function() {
+        if (request.readyState === 4) {
+          if (request.status === 200) {
+            slidesData = JSON.parse(request.responseText).imgs;
+            console.log(slidesData);
+
+            this.init();
+            this.play();
+          } else {
+            console.error('There was a problem with the request.');
+          }
+        }
+      }.bind(this);
+      request.open('GET', './images.json');
+      request.send();
+    }
+
 
     slidesNode = root.querySelector('.slides');
     statusNode = root.querySelector('.status');
@@ -66,10 +86,14 @@
   };
 
   Slideshow.prototype.init = function() {
+    var format = 'large'; // or small if on mobile
 
     // Generate the slides
     for(var i = 0; i < slidesData.length; i++) {
-      slidesNode.appendChild(createSlide(slidesData[i].src,slidesData[i].caption));
+      slidesNode.appendChild(createSlide(
+        '/backofficeimages/' + format + '/' + slidesData[i].name,
+        slidesData[i].desc
+      ));
     }
 
     // Generate navigation
@@ -126,6 +150,4 @@
   };
 
   var slideshow = new Slideshow(_slides);
-  slideshow.init();
-  slideshow.play();
 })();

@@ -5,8 +5,12 @@
   var current;
   var root;
 
-  function createSlide(src, caption) {
+  function createSlide(src, caption, transition) {
     var fig = document.createElement('figure');
+    transition.split(' ').forEach(function(anim){
+      fig.classList.add(anim);
+    });
+
     var img = document.createElement('img');
     var figcaption = document.createElement('figcaption');
 
@@ -95,7 +99,8 @@
     for(var i = 0; i < slidesData.length; i++) {
       slidesNode.appendChild(createSlide(
         '../backofficeimages/' + format + '/' + slidesData[i].name,
-        slidesData[i].desc
+        slidesData[i].desc,
+        slidesData[i].transition
       ));
     }
 
@@ -135,10 +140,10 @@
     root.addEventListener('touchend', touch.end.bind(touch));
 
     // Let some event deactivate the autoplay
-    root.addEventListener('mouseover', this.pause.bind(this));
-    root.addEventListener('mouseout', this.play.bind(this));
-    root.addEventListener('focus', this.pause.bind(this));
-    root.addEventListener('blur', this.play.bind(this));
+    root.addEventListener('mouseover', this.toggleAutoplay.bind(this));
+    root.addEventListener('mouseout', this.toggleAutoplay.bind(this));
+    root.addEventListener('focus', this.toggleAutoplay.bind(this));
+    root.addEventListener('blur', this.toggleAutoplay.bind(this));
 
     // Autoplay repetition logic.
     var timeout = function(){

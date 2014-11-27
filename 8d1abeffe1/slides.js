@@ -3,6 +3,7 @@
   var slidesNode, statusNode, prevNode, nextNode, counterNode, navNode;
   var slidesNodeList;
   var current;
+  var root;
 
   function createSlide(src, caption) {
     var fig = document.createElement('figure');
@@ -27,7 +28,7 @@
 
     autoplayTime = opts.autoplayTime || 3000;
     counterSeparator = opts.counterSeparator || ' / ';
-    var root = document.querySelector(opts.id);
+    root = document.querySelector(opts.id);
 
     slidesNode = root.querySelector('.slides');
     statusNode = root.querySelector('.status');
@@ -67,8 +68,6 @@
   };
 
   Slideshow.prototype.slideTo = function(to) {
-    console.log('slide from ' + current + ' to ' + to);
-
     slidesNodeList.item(current).classList.toggle('show');
     slidesNodeList.item(to).classList.toggle('show');
 
@@ -129,6 +128,12 @@
     prevNode.addEventListener('click', this.prevSlide.bind(this));
     statusNode.addEventListener('click', this.toggleAutoplay.bind(this));
 
+    // Add touch feedback
+    var touch = new TouchListener(this);
+    root.addEventListener('touchstart', touch.start.bind(touch));
+    root.addEventListener('touchmove', touch.move.bind(touch));
+    root.addEventListener('touchend', touch.end.bind(touch));
+
     // Autoplay repetition logic.
     var timeout = function(){
       if(this.autoplay) {
@@ -151,6 +156,55 @@
 
     statusNode.classList.toggle('playing');
     statusNode.classList.toggle('stopped');
+  };
+
+  function TouchListener(slideshow) {
+    this.threshold = 100; //required min distance traveled to be considered swipe
+    this.allowedTime = 250; // maximum time allowed to travel that distance
+
+    this.slideshow = slideshow;
+    this.startX = 0;
+    this.startY = 0;
+    this.dist = 0;
+    this.elapsedTime = null;
+    this.startTime = null;
+  };
+
+  TouchListener.prototype.start = function(e) {
+    console.log('touchstart');
+
+    var touchobj = e.changedTouches[0];
+    this.dist = 0;
+    this.startX = touchobj.pageX;
+    this.startY = touchobj.pageY;
+    this.startTime = new Date().getTime(); // record time when finger first makes contact with surface
+  };
+
+  TouchListener.prototype.move = function(e) {
+    e.preventDefault();
+  };
+
+  TouchListener.prototype.end = function(e) {
+    console.log('touchend');
+
+    var touchobj = e.changedTouches[0];
+    this.dist = touchobj.pageX - this.startX; // get total dist traveled by finger while in contact with surface
+    this.elapsedTime = new Date().getTime() - this.startTime; // get time elapsed
+
+    // check that elapsed time is within specified,
+    //       horizontal dist traveled >= threshold,
+    //       and vertical dist traveled <= 100
+    if(this.elapsedTime <= this.allowedTime
+      && Math.abs(this.dist) >= this.threshold
+      && Math.abs(touchobj.pageY - this.startY) <= 100) {
+
+      // Swipe to right
+      if(touchobj.pageX - this.startX < 0) {
+        this.slideshow.nextSlide();
+      } else {
+        this.slideshow.prevSlide();
+      }
+    }
   };
 
   // Provide it as a module for everyone to use

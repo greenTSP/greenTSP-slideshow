@@ -11,13 +11,15 @@
   ]
 };
   */
-  var slides;
+  var slidesData;
   var slidesNode, statusNode, prevNode, nextNode, counterNode, navNode;
+
+  var slidesNodeList;
 
   var current;
 
   function Slideshow(opts) {
-    slides = opts.slides;
+    slidesData = opts.slides;
     var root = document.querySelector(opts.id);
 
     slidesNode = root.querySelector('.slides');
@@ -27,8 +29,9 @@
     counterNode = root.querySelector('.counter');
     navNode = root.querySelector('nav');
 
-    current = slidesNode.children.item(0);
-    console.log(current);
+    slidesNodeList = slidesNode.children;
+
+    current = 0;
   }
 
   Slideshow.prototype.init = function() {
@@ -39,15 +42,38 @@
       var a = links[i];
       a.addEventListener('click', function(event){
         // toggle current image
-        current.classList.toggle('show');
+        slidesNodeList.item(current).classList.toggle('show');
 
         // toggle dest image
         var dest = slidesNode.children.item(this);
         dest.classList.toggle('show');
 
-        current = dest;
+        current = i;
       }.bind(i));
     }
+
+    nextNode.addEventListener('click', nextSlide);
+    prevNode.addEventListener('click', prevSlide);
+  }
+
+  function nextSlide(event) {
+    console.log('toggle ' + current + ' and ' + (current + 1));
+    var dest = slidesNodeList.item(current + 1),
+        cur = slidesNodeList.item(current);
+    console.log(dest, cur);
+
+    cur.classList.toggle('show');
+    dest.classList.toggle('show');
+  }
+
+  function prevSlide(event) {
+    console.log('toggle ' + current + ' and ' + (current + 1));
+    var dest = slidesNodeList.item(current - 1),
+    cur = slidesNodeList.item(current);
+    console.log(dest, cur);
+
+    cur.classList.toggle('show');
+    dest.classList.toggle('show');
   }
 
   var slideshow = new Slideshow(_slides);

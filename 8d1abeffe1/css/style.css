@@ -147,7 +147,7 @@
 #slideshow .status{
 	cursor: pointer;
 	position: absolute;
-	background-image: url('../img/sprite-square-opt.png');
+	background-image: url('../img/sprite-square.png');
 	background-size: 200% 300%;
 	background-position: 0 0;
 }

@@ -1,33 +1,33 @@
-{ imgs : [
+{ "imgs" : [
 	{
-		'name': 'bach_creek_river.jpg',
-		'desc': 'Un ruisseau ombragé',
-                'transition': 'fade'
+		"name": "bach_creek_river.jpg",
+		"desc": "Un ruisseau ombragé",
+                "transition": "fade"
 	},
 	{
-		'name': 'canoe_water_nature.jpg',
-		'desc': 'une invitation à naviguer paisiblement',
-                'transition': 'translate'
+		"name": "canoe_water_nature.jpg",
+		"desc": "une invitation à naviguer paisiblement",
+                "transition": "translate"
 	},
 	{
-		'name': 'gclc.png',
-		'desc': 'le logo officiel du Green Code Lab Challenge ',
-                'transition': 'fade'
+		"name": "gclc.png",
+		"desc": "le logo officiel du Green Code Lab Challenge ",
+                "transition": "fade"
 	},
 	{
-		'name': 'guyana_sky_clouds.jpg',
-		'desc': 'Landscape in Amazonian Guyana',
-                'transition': 'fade'
+		"name": "guyana_sky_clouds.jpg",
+		"desc": "Landscape in Amazonian Guyana",
+                "transition": "fade"
 	},
 	{
-		'name': 'hawaii_sky_clouds.jpg',
-		'desc': 'Hawaiian bay',
-                'transition': 'translate'
+		"name": "hawaii_sky_clouds.jpg",
+		"desc": "Hawaiian bay",
+                "transition": "translate"
 	},
 	{
-		'name': 'water_nature_river.jpg',
-		'desc': 'nice house along the river ...',
-                'transition': 'translate'
+		"name": "water_nature_river.jpg",
+		"desc": "nice house along the river ...",
+                "transition": "translate"
 	} 
 	]
 }

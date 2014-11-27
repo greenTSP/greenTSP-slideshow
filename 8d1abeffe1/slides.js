@@ -5,8 +5,12 @@
   var current;
   var root;
 
-  function createSlide(src, caption) {
+  function createSlide(src, caption, transition) {
     var fig = document.createElement('figure');
+    transition.split(' ').forEach(function(anim){
+      fig.classList.add(anim);
+    });
+
     var img = document.createElement('img');
     var figcaption = document.createElement('figcaption');
 
@@ -95,7 +99,8 @@
     for(var i = 0; i < slidesData.length; i++) {
       slidesNode.appendChild(createSlide(
         '../backofficeimages/' + format + '/' + slidesData[i].name,
-        slidesData[i].desc
+        slidesData[i].desc,
+        slidesData[i].transition
       ));
     }
 
@@ -134,6 +139,12 @@
     root.addEventListener('touchmove', touch.move.bind(touch));
     root.addEventListener('touchend', touch.end.bind(touch));
 
+    // Let some event deactivate the autoplay
+    root.addEventListener('mouseover', this.toggleAutoplay.bind(this));
+    root.addEventListener('mouseout', this.toggleAutoplay.bind(this));
+    root.addEventListener('focus', this.toggleAutoplay.bind(this));
+    root.addEventListener('blur', this.toggleAutoplay.bind(this));
+
     // Autoplay repetition logic.
     var timeout = function(){
       if(this.autoplay) {
@@ -149,6 +160,12 @@
     this.autoplay = true;
     statusNode.classList.add('playing');
     statusNode.classList.remove('stopped');
+  }
+
+  Slideshow.prototype.pause = function() {
+    this.autoplay = false;
+    statusNode.classList.remove('playing');
+    statusNode.classList.add('stopped');
   }
 
   Slideshow.prototype.toggleAutoplay = function() {
@@ -172,6 +189,7 @@
 
   TouchListener.prototype.start = function(e) {
     console.log('touchstart');
+    this.slideshow.pause();
 
     var touchobj = e.changedTouches[0];
     this.dist = 0;
@@ -205,6 +223,8 @@
         this.slideshow.prevSlide();
       }
     }
+
+    this.slideshow.play();
   };
 
   // Provide it as a module for everyone to use

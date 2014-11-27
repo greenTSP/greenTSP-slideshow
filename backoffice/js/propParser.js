@@ -5,7 +5,7 @@ var img = function(name, desc){
 };
 
 img.prototype.toString = function imgToString(){
-    return "\n\t{\n\t\t'name': '"+this.name+"',\n\t\t'desc': '"+this.desc+"'\n\t\t'transition': '"+this.transition+"'\n\t}";
+    return "\n\t{\n\t\t\"name\": \""+this.name+"\",\n\t\t\"desc\": \""+this.desc+"\",\n\t\t\"transition\": \""+this.transition+"\"\n\t}";
 };
 
 var createJsonImages = function(){

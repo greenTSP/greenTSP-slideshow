@@ -17,6 +17,7 @@
   var current;
 
   function Slideshow(opts) {
+    this.autoplay = true;
     slidesData = opts.slides;
     counterSeparator = opts.counterSeparator || ' / ';
     var root = document.querySelector(opts.id);
@@ -31,7 +32,7 @@
     slidesNodeList = slidesNode.children;
 
     current = 0;
-  }
+  };
 
   Slideshow.prototype.slideTo = function(to) {
     console.log('slide from ' + current + ' to ' + to);
@@ -43,9 +44,17 @@
 
     current = to;
 
-    statusNode.textContent = (current + 1) + counterSeparator + slidesNodeList.length;
-  }
     counterNode.textContent = (current + 1) + counterSeparator + slidesNodeList.length;
+  };
+
+  Slideshow.prototype.nextSlide = function nextSlide() {
+    this.slideTo((current + 1) % slidesNodeList.length);
+  };
+
+  Slideshow.prototype.prevSlide = function prevSlide() {
+    var len = slidesNodeList.length;
+    this.slideTo( (((current-1)%len)+len)%len );
+  };
 
   Slideshow.prototype.init = function() {
     var links = navNode.getElementsByTagName('a'),
@@ -59,17 +68,28 @@
       }.bind({slideshow: this, to: i}));
     }
 
-    nextNode.addEventListener('click', function nextSlide(event) {
-      this.slideTo((current + 1) % slidesNodeList.length);
-    }.bind(this));
+    nextNode.addEventListener('click', this.nextSlide.bind(this));
+    prevNode.addEventListener('click', this.prevSlide.bind(this));
 
-    prevNode.addEventListener('click', function prevSlide(event) {
-      var len = slidesNodeList.length;
-      this.slideTo( (((current-1)%len)+len)%len );
-    }.bind(this));
-  }
+    var timeout = function(){
+      if(this.autoplay) {
+        this.nextSlide();
+        setTimeout(timeout.bind(this), 3000);
+      }
+    };
 
-  var slideshow = new Slideshow(_slides);
+    setTimeout(timeout.bind(this), 3000);
+  };
+
+  Slideshow.prototype.pause = function() {
+    this.autoplay = false;
+  };
+
+  Slideshow.prototype.play = function() {
+    this.autoplay = true;
+  };
+
+  slideshow = new Slideshow(_slides);
   slideshow.init();
 
   Slideshow.prototype.lazyLoad = function(index)

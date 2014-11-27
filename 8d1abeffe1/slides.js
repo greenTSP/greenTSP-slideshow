@@ -11,16 +11,32 @@
   ]
 };
   */
-  var slidesData, counterSeparator;
+  var slidesData, counterSeparator, autoplayTime;
   var slidesNode, statusNode, prevNode, nextNode, counterNode, navNode;
   var slidesNodeList;
   var current;
 
+  function createSlide(src, caption) {
+    var fig = document.createElement('figure');
+    var img = document.createElement('img');
+    var figcaption = document.createElement('figcaption');
+
+    img.src = src;
+    img.alt = caption;
+    figcaption.textContent = caption;
+
+    fig.appendChild(img);
+    fig.appendChild(figcaption);
+
+    return fig;
+  }
+
   function Slideshow(opts) {
-    this.autoplay = true;
     slidesData = opts.slides;
+    autoplayTime = opts.autoplayTime || 3000;
     counterSeparator = opts.counterSeparator || ' / ';
     var root = document.querySelector(opts.id);
+
 
     slidesNode = root.querySelector('.slides');
     statusNode = root.querySelector('.status');
@@ -29,9 +45,18 @@
     counterNode = root.querySelector('.counter');
     navNode = root.querySelector('nav');
 
-    slidesNodeList = slidesNode.children;
+    // Generate the slides
+    for(var i = 0; i < slidesData.length; i++) {
+      slidesNode.appendChild(createSlide(slidesData[i].src,slidesData[i].caption));
+    }
 
+    // List of slides
+    slidesNodeList = slidesNode.children;
     current = 0;
+    slidesNodeList.item(current).classList.add('show');
+
+
+    this.play();
   };
 
   Slideshow.prototype.slideTo = function(to) {
@@ -57,30 +82,44 @@
   };
 
   Slideshow.prototype.init = function() {
-    var links = navNode.getElementsByTagName('a'),
-        len = links.length;
+    var len = slidesNodeList.length;
 
+    // Generate navigation
+    console.log('generating ' + len + ' links');
     for(var i = 0; i < len; i++) {
-      var a = links[i];
+      var a = document.createElement('a');
+      a.href = '#';
+      a.textContent = i+1;
+
+      // On click go to slide i
       a.addEventListener('click', function(event){
-        // toggle current image
         this.slideshow.slideTo(this.to);
       }.bind({slideshow: this, to: i}));
+
+      navNode.appendChild(a)
     }
 
+    // Add a bunch of listener
     nextNode.addEventListener('click', this.nextSlide.bind(this));
     prevNode.addEventListener('click', this.prevSlide.bind(this));
     statusNode.addEventListener('click', this.toggleAutoplay.bind(this));
 
+    // Autoplay repetition logic.
     var timeout = function(){
       if(this.autoplay) {
         this.nextSlide();
       }
-      setTimeout(timeout.bind(this), 3000);
+      setTimeout(timeout.bind(this), autoplayTime);
     };
-
-    setTimeout(timeout.bind(this), 3000);
+    // Launch the autoplay
+    setTimeout(timeout.bind(this), autoplayTime);
   };
+
+  Slideshow.prototype.play = function() {
+    this.autoplay = true;
+    statusNode.classList.add('playing');
+    statusNode.classList.remove('stopped');
+  }
 
   Slideshow.prototype.toggleAutoplay = function() {
     this.autoplay = this.autoplay ? false : true;
@@ -89,20 +128,16 @@
     statusNode.classList.toggle('stopped');
   };
 
-  slideshow = new Slideshow(_slides);
-  slideshow.init();
+  Slideshow.prototype.lazyLoad = function(index) {
+  	var prev, next;
 
-  Slideshow.prototype.lazyLoad = function(index)
-  {
-	var prev, next;
+  	this.load(index);
 
-	this.load(index);
+  	prev = (index===0)?slides.length:index-1;
+  	this.load(prev);
 
-	prev = (index===0)?slides.length:index-1;
-	this.load(prev);
-
-	next = ((index+1)===slides.length)?0:index+1;
-	this.load(next);
+  	next = ((index+1)===slides.length)?0:index+1;
+  	this.load(next);
   };
 
   Slideshow.prototype.load = function(index)
@@ -110,4 +145,7 @@
 	if(!slides[index].load)
 		document.getElementById(slides[index-1].id).setAttribute('src', slides[index].src);
   };
+
+  var slideshow = new Slideshow(_slides);
+  slideshow.init();
 })();

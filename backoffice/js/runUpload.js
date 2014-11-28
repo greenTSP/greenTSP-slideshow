@@ -6,7 +6,9 @@ var finalName = process.argv[2],
 	initName = process.argv[4];
 
 console.log(finalName + " " + desc + " " + initName );
-resizer.exportBackofficeImg(finalName, desc, initName, function(){
+resizer.exportBackofficeImg(finalName, desc, initName, function(err){
+	if(err)
+		console.log(err);
 	var command = 'rm '+initName;
 	console.log(command);
 	exec(command, function(err){

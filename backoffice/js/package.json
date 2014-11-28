@@ -1,8 +1,4 @@
 {
 	"name":"backOfficeServer",
-	"version":"0.1.0",
-	"dependencies":{
-		"express":"4.10.4",
-		"multer":"0.1.6"
-		}
+	"version":"0.1.0"
 }

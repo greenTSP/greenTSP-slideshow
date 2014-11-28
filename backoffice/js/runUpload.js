@@ -1,4 +1,5 @@
-var resizer = require('./resizer.js');
+var resizer = require('./resizer.js'),
+	exec = require('child_process').exec;
 
 var finalName = process.argv[1],
 	desc = process.argv[2],

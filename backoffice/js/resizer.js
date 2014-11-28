@@ -70,7 +70,7 @@ var optim = function(imgpath, callback){
 }
 
 var optimJPEG = function(imgpath, callback){
-	var command = jpegoptim+" "+jpegoptions+" "+imgpath;
+	var command = jpegoptim+" "+jpegoptions+" '"+imgpath+"'";
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
@@ -79,7 +79,7 @@ var optimJPEG = function(imgpath, callback){
 }
 
 var optimPNG = function(imgpath, callback){
-	var command = optipng + " " + pngoptions + " "+imgpath;
+	var command = optipng + " " + pngoptions + " '"+imgpath+"'";
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
@@ -88,7 +88,7 @@ var optimPNG = function(imgpath, callback){
 }
 
 var resizeImage = function(input, output, sizeX, sizeY, callback){
-	var command = converter + " " + input + " " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 -strip -interlace plane " + output;
+	var command = converter + " '" + input + "' " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 -strip -interlace plane '" + output+"'";
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)

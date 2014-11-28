@@ -2,7 +2,7 @@
 	$uploaddir = '/var/www/backoffice/js/tempimg/';
 	$uploadfile = $uploaddir.basename($_FILES['image']['name']);
 	$ext = end((explode(".", $uploadfile)));
-	$finalname = "".time().$ext;
+	$finalname = "".time().".".$ext;
 	$desc = $_POST['description'];
 
 	

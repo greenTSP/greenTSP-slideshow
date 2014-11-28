@@ -3,9 +3,15 @@ var propParser = require('./propParser.js');
 var fs = require('fs');
 var util = require('util');
 
+
+path = './tempimg/';
+
 var exportToJson = function(infos){
 	mergeBackofficeInfos(oldInfos, infos);
-	resizer.exportGclImg('./tempimg/', infos, oldInfos);
+	resizer.setConverter('echo', "");
+	resizer.setJpegOptimizer('echo', "");
+	resizer.setPngOptimizer('echo', "");
+	resizer.exportGclImg(path, infos, oldInfos);
 	
 	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), {flag: 'w+'}, function (err) {
 		if (err) throw err;
@@ -30,4 +36,4 @@ var getInfos = function(){
 
 var oldInfos = getInfos();
 
-propParser.getImgInfos(function(result){ exportToJson(result);});
+propParser.getImgInfos(path, function(result){ exportToJson(result);});

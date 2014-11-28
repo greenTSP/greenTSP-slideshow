@@ -145,7 +145,7 @@ var exportGclImg = function(folder, infos, oldInfos){
 	var exist;
 	
 	var filenames = [];
-	
+	console.log('reze');
 	for(i; i<n; i++)
 	{
 		exist = false;
@@ -162,6 +162,7 @@ var exportGclImg = function(folder, infos, oldInfos){
 			
 			exist = true;
 			if(img.last_modified > oldImg.last_modified){
+				console.log('exporting '+img.name);
 				resizer.exportImg(img.name,folder+img.name);
 				break;
 			}

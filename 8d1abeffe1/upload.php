@@ -6,7 +6,7 @@
 		$command = 'node ../backoffice/js/run.js';
 		exec($command, $out);
 		echo "Fichier téléchargé\n";
-		echo $out;
+		var_dump($out);
 	} else {
 		echo "Erreur de téléchargement.";
 	}

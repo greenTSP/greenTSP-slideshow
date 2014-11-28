@@ -5,7 +5,7 @@
   var current;
   var root;
 
-  function createSlide(src, caption, transition) {
+  function createSlide(src, caption, transition, load) {
     var fig = document.createElement('figure');
     transition.split(' ').forEach(function(anim){
       fig.classList.add(anim);
@@ -14,7 +14,9 @@
     var img = document.createElement('img');
     var figcaption = document.createElement('figcaption');
 
-    img.src = src;
+	if(load)
+		img.src = src;
+
     img.alt = caption;
     figcaption.textContent = caption;
 
@@ -72,6 +74,10 @@
   };
 
   Slideshow.prototype.slideTo = function(to) {
+	this.load(to);
+	this.load(to+1);
+	this.load(to-1);
+		
     slidesNodeList.item(current).classList.toggle('show');
     slidesNodeList.item(to).classList.toggle('show');
 
@@ -81,6 +87,19 @@
     current = to;
 
     updateCounter();
+  };
+  
+  Slideshow.prototype.load = function(i){
+	var index = i%slidesData.length;
+	index = (index<0)?index+slidesData.length:index;
+	
+	if(slidesData[index].load)
+		return;
+	
+	slidesData[index].load = true;
+	var format = (screen.width <= 768) ? 'small' : 'large';	  
+	var link = '../backofficeimages/' + format + '/' + slidesData[index].name;
+	slidesNodeList.item(index).childNodes[0].src = link;
   };
 
   Slideshow.prototype.nextSlide = function nextSlide() {
@@ -97,10 +116,13 @@
 
     // Generate the slides
     for(var i = 0; i < slidesData.length; i++) {
+	  // Load only current, previous and next.
+	  slidesData[i].load = (i%slidesData.length < 2);
       slidesNode.appendChild(createSlide(
         '../backofficeimages/' + format + '/' + slidesData[i].name,
         slidesData[i].desc,
-        slidesData[i].transition
+        slidesData[i].transition,
+		slidesData[i].load
       ));
     }
 
@@ -118,7 +140,7 @@
         this.slideshow.slideTo(this.to);
       }.bind({slideshow: this, to: i}));
 
-      navNode.appendChild(a)
+      navNode.appendChild(a);
     }
 
     // Display where we are in that slideshow

@@ -189,6 +189,55 @@ p {
   list-style: none;
 }
 
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+@media(min-width:768px) {
+  .navbar {
+    border-radius: 4px;
+  };
+}
+
+.navbar-fixed-top,.navbar-fixed-bottom {
+  position: fixed;
+  right: 0;
+  left: 0;
+  z-index: 1030;
+}
+
+@media(min-width:768px) {
+  .navbar-fixed-top,.navbar-fixed-bottom {
+    border-radius: 0;
+  };
+}
+
+.navbar-fixed-top {
+  top: 0;
+  border-width: 0 0 1px;
+}
+
+.navbar-brand {
+  float: left;
+  padding: 15px 15px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+}
+
+.navbar-brand:hover,.navbar-brand:focus {
+  text-decoration: none;
+}
+
+@media(min-width:768px) {
+  .navbar>.container .navbar-brand,.navbar>.container-fluid .navbar-brand {
+    margin-left: -15px;
+  };
+}
+
 .jumbotron {
   padding: 30px 15px;
   margin-bottom: 30px;

@@ -2,7 +2,7 @@ var fs = require('fs');
 var img_constructor = require('./img.js').img;
 
 var path = '../../gclcimages/';
-var transitions = ['fade', 'translate'];
+var transitions = ['fade', 'fade', 'translate', 'translate'];
 
 var getImgInfos = function(callback){
     var filePattern = /.prop/i;
@@ -46,7 +46,7 @@ var getImgInfos = function(callback){
                     }
                 });
             })(propFile, imageFile, transNumber);
-            transNumber = (transNumber+1)%2;
+            transNumber = (transNumber+1)%4;
         }
     });
 };

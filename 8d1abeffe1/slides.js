@@ -16,6 +16,8 @@
 
 	if(load)
 		img.src = src;
+	else
+		img.src = "";
 
     img.alt = caption;
     figcaption.textContent = caption;

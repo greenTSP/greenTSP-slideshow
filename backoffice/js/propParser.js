@@ -1,7 +1,7 @@
 var fs = require('fs');
 var img_constructor = require('./img.js').img;
 
-
+var path = '../../gclcimages/';
 var transitions = ['fade', 'translate'];
 
 var getImgInfos = function(callback){

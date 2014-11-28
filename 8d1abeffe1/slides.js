@@ -74,10 +74,10 @@
   };
 
   Slideshow.prototype.slideTo = function(to) {
-	this.load(to);
-	this.load(to+1);
-	this.load(to-1);
-		
+  	this.load(to);
+  	this.load(to+1);
+  	this.load(to-1);
+
     slidesNodeList.item(current).classList.toggle('show');
     slidesNodeList.item(to).classList.toggle('show');
 
@@ -88,18 +88,18 @@
 
     updateCounter();
   };
-  
-  Slideshow.prototype.load = function(i){
-	var index = i%slidesData.length;
-	index = (index<0)?index+slidesData.length:index;
-	
-	if(slidesData[index].load)
-		return;
-	
-	slidesData[index].load = true;
-	var format = (screen.width <= 768) ? 'small' : 'large';	  
-	var link = '../backofficeimages/' + format + '/' + slidesData[index].name;
-	slidesNodeList.item(index).childNodes[0].src = link;
+
+  Slideshow.prototype.load = function(i) {
+  	var index = i%slidesData.length;
+  	index = (index<0)?index+slidesData.length:index;
+
+  	if(slidesData[index].load)
+  		return;
+
+  	slidesData[index].load = true;
+  	var format = (screen.width <= 768) ? 'small' : 'large';
+  	var link = '../backofficeimages/' + format + '/' + slidesData[index].name;
+  	slidesNodeList.item(index).childNodes[0].src = link;
   };
 
   Slideshow.prototype.nextSlide = function nextSlide() {

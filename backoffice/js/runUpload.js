@@ -15,8 +15,6 @@ resizer.exportBackofficeImg(finalName, desc, initName, function(err){
 		if(err)
 			throw err;
 		console.log('desc = ' + desc);
-		console.log('File removed');
-		res.send('success');
-		
+		console.log('File removed');		
 	});
 });

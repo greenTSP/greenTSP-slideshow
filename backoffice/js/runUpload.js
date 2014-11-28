@@ -4,6 +4,8 @@ var resizer = require('./resizer.js'),
 var finalName = process.argv[2],
 	desc = process.argv[3],
 	initName = process.argv[4];
+	
+process.chdir("/var/www/backoffice/js/");
 
 console.log(finalName + " " + desc + " " + initName );
 resizer.exportBackofficeImg(finalName, desc, initName, function(err){

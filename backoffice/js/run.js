@@ -32,4 +32,4 @@ var getInfos = function(){
 
 var oldInfos = getInfos();
 
-propParser.getImgInfos(path, function(result){ exportToJson(result);});
+propParser.getImgInfos(function(result){ exportToJson(result);});

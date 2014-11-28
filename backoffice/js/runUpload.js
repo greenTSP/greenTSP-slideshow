@@ -1,39 +1,18 @@
 var resizer = require('./resizer.js');
-var propParser = require('./propParser.js');
-var fs = require('fs');
-var util = require('util');
 
+var finalname = process.argv[1],
+	desc = process.argv[2],
+	initname = process.argv[3];
 
-path = './tempimg/';
-
-var exportToJson = function(infos){
-	mergeBackofficeInfos(oldInfos, infos);
-	resizer.setConverter('echo', "");
-	resizer.setJpegOptimizer('echo', "");
-	resizer.setPngOptimizer('echo', "");
-	resizer.exportGclImg(path, infos, oldInfos);
-	
-	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), {flag: 'w+'}, function (err) {
-		if (err) throw err;
+resizer.exportBackofficeImg(finalname, desc, initname, function(){
+	var command = 'rm '+initName;
+	console.log(command);
+	exec(command, function(err){
+		if(err)
+			throw err;
+		console.log('desc = ' + desc);
+		console.log('File removed');
+		res.send('success');
+		
 	});
-};
-
-var mergeBackofficeInfos = function(oldInfos, infos)
-{
-	for(var i=0; i<oldInfos.imgs.length; i++){
-		if(!oldInfos.imgs[i].isGclImg){
-			infos.imgs.push(oldInfos.imgs[i]);
-		}
-	}
-};
-
-var getInfos = function(){
-	if(!fs.existsSync('../../backofficeimages/imgs.info.json'))
-		return {"imgs":[]};
-	
-	return JSON.parse(fs.readFileSync('../../backofficeimages/imgs.info.json'));
-};
-
-var oldInfos = getInfos();
-
-propParser.getImgInfos(path, function(result){ exportToJson(result);});
+});

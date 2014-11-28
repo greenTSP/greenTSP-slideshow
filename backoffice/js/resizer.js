@@ -145,7 +145,6 @@ var exportGclImg = function(folder, infos, oldInfos){
 	var exist;
 	
 	var filenames = [];
-	console.log('reze');
 	for(i; i<n; i++)
 	{
 		exist = false;

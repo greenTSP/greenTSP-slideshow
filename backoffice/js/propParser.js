@@ -4,7 +4,7 @@ var img_constructor = require('./img.js').img;
 
 var transitions = ['fade', 'translate'];
 
-var getImgInfos = function(path, callback){
+var getImgInfos = function(callback){
     var filePattern = /.prop/i;
     var descriptionPattern = /Description.*\n/;
 
@@ -13,7 +13,6 @@ var getImgInfos = function(path, callback){
     fs.readdir(path, function(err, files){
         if(err)
             throw err;
-
         var propFile, imageFile;
         var transNumber = 0;
         var numberPropFiles = 0;

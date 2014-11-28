@@ -8,7 +8,7 @@
 	
 	echo '<pre>';
 	if(move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)){
-		$command = 'node /var/www/backoffice/js/runUpload.js '.$finalname." ".$desc." ".$uploadfile;
+		$command = "node /var/www/backoffice/js/runUpload.js '".$finalname."' '".$desc."' '".$uploadfile."'";
 		exec($command, $out);
 		echo "Fichier téléchargé\n";
 		var_dump($out);

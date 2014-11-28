@@ -1,9 +1,9 @@
 var resizer = require('./resizer.js'),
 	exec = require('child_process').exec;
 
-var finalName = process.argv[1],
-	desc = process.argv[2],
-	initName = process.argv[3];
+var finalName = process.argv[2],
+	desc = process.argv[3],
+	initName = process.argv[4];
 
 console.log(finalName + " " + desc + " " + initName );
 resizer.exportBackofficeImg(finalName, desc, initName, function(){

@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 var sys = require('sys');
 
 var jpegoptim = "/usr/local/bin/jpegoptim";
-var jpegoptions = "--max=90 --all-progressive --strip-all --preserve --totals";
+var jpegoptions = "--max=85 --all-progressive --strip-all --preserve --totals";
 
 var optipng = "/usr/local/bin/optipng";
 var pngoptions = "-o2 -preserve";

@@ -14,10 +14,11 @@
     var img = document.createElement('img');
     var figcaption = document.createElement('figcaption');
 
-	if(load)
-		img.src = src;
-	else
-		img.src = "";
+  	if(load) {
+  		img.src = src;
+  	} else {
+  		img.src = "";
+    }
 
     img.alt = caption;
     figcaption.textContent = caption;
@@ -253,8 +254,24 @@
 
   // Provide it as a module for everyone to use
   window.Slideshow = Slideshow;
-
+  var s;
   if(_slides) {
-    new Slideshow(_slides);
+    s = new Slideshow(_slides);
   }
+
+  window.onbeforeunload = function(event) {
+    s = null;
+    slidesData = null;
+    counterSeparator = null;
+    autoplayTime = null;
+    slidesNode = null;
+    statusNode = null;
+    prevNode = null;
+    nextNode = null;
+    counterNode = null;
+    navNode = null;
+    slidesNodeList = null;
+    current = null;
+    root = null;
+  };
 })();

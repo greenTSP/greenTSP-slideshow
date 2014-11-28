@@ -4,8 +4,9 @@
 	echo '<pre>';
 	if(move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)){
 		$command = 'node ../backoffice/js/run.js';
-		exec($command);
+		exec($command, $out);
 		echo "Fichier téléchargé\n";
+		echo $out;
 	} else {
 		echo "Erreur de téléchargement.";
 	}

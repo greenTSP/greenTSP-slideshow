@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 var sys = require('sys');
 
 var jpegoptim = "/usr/local/bin/jpegoptim";
-var jpegoptions = "--max=90 --all-progressive --strip-all --preserve --totals";
+var jpegoptions = "--max=85 --all-progressive --strip-all --preserve --totals";
 
 var optipng = "/usr/local/bin/optipng";
 var pngoptions = "-o2 -preserve";
@@ -88,7 +88,7 @@ var optimPNG = function(imgpath, callback){
 }
 
 var resizeImage = function(input, output, sizeX, sizeY, callback){
-	var command = converter + " " + input + " " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 " + output;
+	var command = converter + " " + input + " " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 -strip -interlace plane " + output;
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)

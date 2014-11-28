@@ -1,5 +1,5 @@
 <?php
-	$uploaddir = '../backoffice/js/tempimg/';
+	$uploaddir = '/var/www/backoffice/js/tempimg/';
 	$uploadfile = $uploaddir.basename($_FILES['image']['name']);
 	echo '<pre>';
 	if(move_uploaded_file($_FILES['image']['tmp_name'], $uploadfile)){

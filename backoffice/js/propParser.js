@@ -2,7 +2,6 @@ var fs = require('fs');
 var img_constructor = require('./img.js').img;
 
 var path = '../../gclcimages/';
-
 var transitions = ['fade', 'translate'];
 
 var getImgInfos = function(callback){
@@ -14,7 +13,6 @@ var getImgInfos = function(callback){
     fs.readdir(path, function(err, files){
         if(err)
             throw err;
-
         var propFile, imageFile;
         var transNumber = 0;
         var numberPropFiles = 0;

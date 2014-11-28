@@ -3,9 +3,11 @@ var propParser = require('./propParser.js');
 var fs = require('fs');
 var util = require('util');
 
+var path = '../../gclcimages/';
+
 var exportToJson = function(infos){
 	mergeBackofficeInfos(oldInfos, infos);
-	resizer.exportGclImg('../../gclcimages/', infos, oldInfos);
+	resizer.exportGclImg(path, infos, oldInfos);
 	
 	fs.writeFile('../../backofficeimages/imgs.info.json', JSON.stringify(infos), {flag: 'w+'}, function (err) {
 		if (err) throw err;

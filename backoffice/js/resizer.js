@@ -5,7 +5,7 @@ var exec = require('child_process').exec;
 var sys = require('sys');
 
 var jpegoptim = "/usr/local/bin/jpegoptim";
-var jpegoptions = "--max=90 --all-progressive --strip-all --preserve --totals";
+var jpegoptions = "--max=85 --all-progressive --strip-all --preserve --totals";
 
 var optipng = "/usr/local/bin/optipng";
 var pngoptions = "-o2 -preserve";
@@ -70,7 +70,7 @@ var optim = function(imgpath, callback){
 }
 
 var optimJPEG = function(imgpath, callback){
-	var command = jpegoptim+" "+jpegoptions+" "+imgpath;
+	var command = jpegoptim+" "+jpegoptions+" '"+imgpath+"'";
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
@@ -79,7 +79,7 @@ var optimJPEG = function(imgpath, callback){
 }
 
 var optimPNG = function(imgpath, callback){
-	var command = optipng + " " + pngoptions + " "+imgpath;
+	var command = optipng + " " + pngoptions + " '"+imgpath+"'";
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
@@ -88,7 +88,7 @@ var optimPNG = function(imgpath, callback){
 }
 
 var resizeImage = function(input, output, sizeX, sizeY, callback){
-	var command = converter + " " + input + " " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 " + output;
+	var command = converter + " '" + input + "' " + converterOptions +" " + "-resize '"+sizeX + "x" + sizeY + "^' -crop " + sizeX+"x"+sizeY+ "+0+0 -strip -interlace plane '" + output+"'";
 	
 	child = exec(command, function(err, stdout, stderr){
 		if(callback)
@@ -145,7 +145,6 @@ var exportGclImg = function(folder, infos, oldInfos){
 	var exist;
 	
 	var filenames = [];
-	
 	for(i; i<n; i++)
 	{
 		exist = false;
@@ -162,6 +161,7 @@ var exportGclImg = function(folder, infos, oldInfos){
 			
 			exist = true;
 			if(img.last_modified > oldImg.last_modified){
+				console.log('exporting '+img.name);
 				resizer.exportImg(img.name,folder+img.name);
 				break;
 			}
